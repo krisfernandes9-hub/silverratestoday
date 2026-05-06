@@ -3,7 +3,7 @@ const title = "Silver Rates Today | Live Silver Prices";
 const description = "Live silver rates and precious metals calculator. Convert silver prices in 12 currencies worldwide.";
 ---
 
-<!DOCTYPE html>
+<!-- SilverRatesToday v1.5 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -717,7 +717,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
 <section class="rates-section">
   <div class="section-head">Global Rates</div>
   <div class="section-sub">Silver per gram &amp; per kg in local currency</div>
-  <div class="rates-grid" id="rates-grid"></div>
+  <div class="rates-grid" id="rates-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;"></div>
 </section>
 
 <!-- Chart -->
@@ -905,6 +905,18 @@ const description = "Live silver rates and precious metals calculator. Convert s
 
       const cell = document.createElement('div');
       cell.className = 'rate-cell' + (c.code === selectedCurrency ? ' active' : '');
+      cell.style.cssText = `
+        background: ${c.code === selectedCurrency ? '#1A1A1A' : '#FFFFFF'};
+        border: 2px solid ${c.code === selectedCurrency ? '#1A1A1A' : '#CCCCCC'};
+        border-radius: 10px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: all 0.2s;
+      `;
       cell.innerHTML = `
         <div class="rate-card-top">
           <div class="rate-flag">${c.flag}</div>
