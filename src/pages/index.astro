@@ -466,30 +466,31 @@ const description = "Live silver rates and precious metals calculator. Convert s
     .rates-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 16px;
     }
 
     .rate-cell {
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
+      background: #FFFFFF;
+      border: 2px solid #CCCCCC;
+      border-radius: 10px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       transition: all 0.2s;
       cursor: pointer;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .rate-cell:hover { border-color: var(--silver); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
-    .rate-cell.active { background: var(--ink); border-color: var(--ink); }
-    .rate-cell.active .rate-name { color: var(--bg); }
-    .rate-cell.active .rate-code { color: var(--ink-dim); }
-    .rate-cell.active .rate-gram-val { color: var(--bg); }
-    .rate-cell.active .rate-kg-val { color: var(--ink-dim); }
-    .rate-cell.active .rate-tap { color: var(--silver-light); }
-    .rate-cell.active .rate-tax-note { color: var(--ink-dim); }
+    .rate-cell:hover { border-color: #8C9BAB; box-shadow: 0 6px 20px rgba(0,0,0,0.12); transform: translateY(-3px); }
+    .rate-cell.active { background: #1A1A1A; border-color: #1A1A1A; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .rate-cell.active .rate-name { color: #F0F0F0; }
+    .rate-cell.active .rate-code { color: #AAAAAA; }
+    .rate-cell.active .rate-gram-val { color: #F0F0F0; }
+    .rate-cell.active .rate-kg-val { color: #AAAAAA; }
+    .rate-cell.active .rate-tap { color: #C8D0D8; }
+    .rate-cell.active .rate-tax-note { color: #777777; }
+    .rate-cell.active .rate-divider { background: rgba(255,255,255,0.15); }
 
     .rate-card-top {
       display: flex;
@@ -744,25 +745,25 @@ const description = "Live silver rates and precious metals calculator. Convert s
   const FX = { USD:1, INR:83.5, AED:3.67, SAR:3.75, GBP:0.79, EUR:0.92, SGD:1.34, AUD:1.53, JPY:149.5, CAD:1.36, CHF:0.9, MYR:4.68 };
   const FX_SYM = { USD:'$', INR:'₹', AED:'AED ', SAR:'SAR ', GBP:'£', EUR:'€', SGD:'S$', AUD:'A$', JPY:'¥', CAD:'C$', CHF:'Fr ', MYR:'RM ' };
 
-  // Tax/duty multipliers per country (import duty + VAT/GST + approx dealer margin)
+  // Tax/duty multipliers per country based on actual retail vs spot price ratios
   const TAX = {
-    USD: 1.00,   // USA: no federal silver tax
-    INR: 1.18,   // India: 10% import duty + 3% GST + ~5% margin
+    USD: 1.00,   // USA: spot price, no federal tax
+    INR: 3.00,   // India: 15% import duty + 3% GST + dealer margins = ~3x spot
     AED: 1.05,   // UAE: 5% VAT
     SAR: 1.05,   // Saudi: 5% VAT
-    GBP: 1.20,   // UK: 20% VAT on silver
+    GBP: 1.20,   // UK: 20% VAT
     EUR: 1.19,   // Eurozone: avg 19% VAT
     SGD: 1.09,   // Singapore: 9% GST
     AUD: 1.10,   // Australia: 10% GST
     JPY: 1.10,   // Japan: 10% consumption tax
-    CAD: 1.05,   // Canada: 5% GST (silver exempt from HST in most provinces)
+    CAD: 1.05,   // Canada: 5% GST
     CHF: 1.08,   // Switzerland: 7.7% VAT
     MYR: 1.06,   // Malaysia: 6% SST
   };
 
   const TAX_NOTES = {
-    USD: 'Spot price · No federal tax',
-    INR: 'Incl. import duty + GST',
+    USD: 'International spot price',
+    INR: 'Incl. 15% import duty + 3% GST',
     AED: 'Incl. 5% VAT',
     SAR: 'Incl. 5% VAT',
     GBP: 'Incl. 20% VAT',
