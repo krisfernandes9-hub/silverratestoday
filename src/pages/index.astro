@@ -465,47 +465,48 @@ const description = "Live silver rates and precious metals calculator. Convert s
 
     .rates-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
 
     .rate-cell {
-      background: var(--bg-dark);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       padding: 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 10px;
       transition: all 0.2s;
       cursor: pointer;
-      border-left: 3px solid transparent;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
 
-    .rate-cell:hover { background: var(--bg); border-left-color: var(--silver); }
-    .rate-cell.active { background: var(--ink); border-left-color: var(--silver); }
+    .rate-cell:hover { border-color: var(--silver); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .rate-cell.active { background: var(--ink); border-color: var(--ink); }
     .rate-cell.active .rate-name { color: var(--bg); }
     .rate-cell.active .rate-code { color: var(--ink-dim); }
     .rate-cell.active .rate-gram-val { color: var(--bg); }
     .rate-cell.active .rate-kg-val { color: var(--ink-dim); }
-    .rate-cell.active .rate-unit { color: var(--ink-dim); }
+    .rate-cell.active .rate-tap { color: var(--silver-light); }
 
-    .rate-country {
+    .rate-card-top {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .rate-flag { font-size: 1.3rem; width: 28px; text-align: center; }
-    .rate-name { font-size: 13px; color: var(--ink); font-weight: 600; font-family: 'Times New Roman', serif; }
-    .rate-code { font-size: 10px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 2px; font-family: 'Times New Roman', serif; }
+    .rate-flag { font-size: 1.6rem; }
+    .rate-name { font-size: 14px; color: var(--ink); font-weight: 700; font-family: 'Times New Roman', serif; }
+    .rate-code { font-size: 11px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 2px; font-family: 'Times New Roman', serif; }
 
-    .rate-prices { text-align: right; }
-    .rate-gram-val { font-family: 'Times New Roman', serif; font-size: 1.05rem; color: var(--ink); font-weight: 700; }
-    .rate-kg-val { font-family: 'Times New Roman', serif; font-size: 0.8rem; color: var(--ink-mid); margin-top: 2px; }
-    .rate-unit { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; margin-top: 3px; text-transform: uppercase; font-family: 'Times New Roman', serif; }
+    .rate-divider { height: 1px; background: var(--border); }
+    .rate-cell.active .rate-divider { background: rgba(255,255,255,0.1); }
+
+    .rate-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+    .rate-gram-val { font-family: 'Times New Roman', serif; font-size: 1.2rem; color: var(--ink); font-weight: 700; }
+    .rate-kg-val { font-family: 'Times New Roman', serif; font-size: 0.78rem; color: var(--ink-mid); margin-top: 3px; }
+    .rate-tap { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Times New Roman', serif; text-align: right; }
 
     /* Calculator currency badge */
     .calc-currency-badge {
@@ -785,6 +786,20 @@ const description = "Live silver rates and precious metals calculator. Convert s
     silverGram = silverOz / TROY;
   }
 
+  async function fetchFX() {
+    try {
+      const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,AED,SAR,GBP,EUR,SGD,AUD,JPY,CAD,CHF,MYR');
+      if (r.ok) {
+        const d = await r.json();
+        if (d && d.rates) {
+          Object.keys(d.rates).forEach(k => { FX[k] = d.rates[k]; });
+        }
+      }
+    } catch(e) {
+      // Keep hardcoded fallback rates
+    }
+  }
+
   function fmt(n, d=2) {
     return n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
   }
@@ -855,17 +870,20 @@ const description = "Live silver rates and precious metals calculator. Convert s
       const cell = document.createElement('div');
       cell.className = 'rate-cell' + (c.code === selectedCurrency ? ' active' : '');
       cell.innerHTML = `
-        <div class="rate-country">
+        <div class="rate-card-top">
           <div class="rate-flag">${c.flag}</div>
           <div>
             <div class="rate-name">${c.name}</div>
             <div class="rate-code">${c.code}</div>
           </div>
         </div>
-        <div class="rate-prices">
-          <div class="rate-gram-val">${sym}${gramFmt}</div>
-          <div class="rate-kg-val">${sym}${kgFmt} / kg</div>
-          <div class="rate-unit">per gram · tap to use</div>
+        <div class="rate-divider"></div>
+        <div class="rate-card-bottom">
+          <div>
+            <div class="rate-gram-val">${sym}${gramFmt}</div>
+            <div class="rate-kg-val">${sym}${kgFmt} / kg</div>
+          </div>
+          <div class="rate-tap">Tap to<br>calculate</div>
         </div>`;
       cell.addEventListener('click', () => {
         selectedCurrency = c.code;
@@ -875,7 +893,6 @@ const description = "Live silver rates and precious metals calculator. Convert s
         document.getElementById('result-currency-label').textContent = c.code;
         document.getElementById('result-sym').textContent = sym;
         calculate();
-        // Scroll to calculator
         document.querySelector('.hero-right').scrollIntoView({behavior:'smooth', block:'center'});
       });
       grid.appendChild(cell);
@@ -987,10 +1004,15 @@ const description = "Live silver rates and precious metals calculator. Convert s
     silverOz = 32.45 + (Math.random() - 0.5) * 0.3;
     silverGram = silverOz / TROY;
     updateUI();
-    try { await fetchPrices(); updateUI(); } catch(e) {}
+    // Fetch live FX and prices in parallel
+    try { await Promise.all([fetchPrices(), fetchFX()]); updateUI(); } catch(e) {}
     setInterval(async () => {
       try { await fetchPrices(); updateUI(); } catch(e) {}
     }, 60000);
+    // Refresh FX every 6 hours
+    setInterval(async () => {
+      try { await fetchFX(); updateUI(); } catch(e) {}
+    }, 6 * 60 * 60 * 1000);
   }
 
   init();
