@@ -479,10 +479,18 @@ const description = "Live silver rates and precious metals calculator. Convert s
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.15s;
+      transition: all 0.2s;
+      cursor: pointer;
+      border-left: 3px solid transparent;
     }
 
-    .rate-cell:hover { background: var(--bg); }
+    .rate-cell:hover { background: var(--bg); border-left-color: var(--silver); }
+    .rate-cell.active { background: var(--ink); border-left-color: var(--silver); }
+    .rate-cell.active .rate-name { color: var(--bg); }
+    .rate-cell.active .rate-code { color: var(--ink-dim); }
+    .rate-cell.active .rate-gram-val { color: var(--bg); }
+    .rate-cell.active .rate-kg-val { color: var(--ink-dim); }
+    .rate-cell.active .rate-unit { color: var(--ink-dim); }
 
     .rate-country {
       display: flex;
@@ -495,10 +503,26 @@ const description = "Live silver rates and precious metals calculator. Convert s
     .rate-code { font-size: 10px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 2px; font-family: 'Times New Roman', serif; }
 
     .rate-prices { text-align: right; }
-    .rate-sym { font-size: 11px; color: var(--ink-light); font-family: 'Times New Roman', serif; }
     .rate-gram-val { font-family: 'Times New Roman', serif; font-size: 1.05rem; color: var(--ink); font-weight: 700; }
     .rate-kg-val { font-family: 'Times New Roman', serif; font-size: 0.8rem; color: var(--ink-mid); margin-top: 2px; }
     .rate-unit { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; margin-top: 3px; text-transform: uppercase; font-family: 'Times New Roman', serif; }
+
+    /* Calculator currency badge */
+    .calc-currency-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: var(--bg-darker);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 11px;
+      color: var(--ink-mid);
+      margin-bottom: 12px;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .calc-currency-badge span { font-weight: 700; color: var(--ink); }
 
     /* ── CHART ── */
     .chart-section {
@@ -653,6 +677,10 @@ const description = "Live silver rates and precious metals calculator. Convert s
     <div class="conv-title">Silver Calculator</div>
     <div class="conv-sub">Convert any weight to live market value</div>
 
+    <div class="calc-currency-badge" id="calc-currency-badge">
+      🌍 Showing value in: <span id="calc-currency-name">USD</span>
+    </div>
+
     <div class="unit-chips">
       <button class="unit-chip active" data-unit="gram">Gram</button>
       <button class="unit-chip" data-unit="oz">Troy Oz</button>
@@ -669,8 +697,8 @@ const description = "Live silver rates and precious metals calculator. Convert s
     </div>
 
     <div class="result-box">
-      <div class="result-label">Value in USD</div>
-      <div class="result-amount"><span class="result-cur">$</span><span id="result-val">—</span></div>
+      <div class="result-label">Value in <span id="result-currency-label">USD</span></div>
+      <div class="result-amount"><span class="result-cur" id="result-sym">$</span><span id="result-val">—</span></div>
       <div class="result-breakdown">
         <div><div class="bd-label">Rate / gram</div><div class="bd-val" id="bd-gram">$—</div></div>
         <div><div class="bd-label">Rate / troy oz</div><div class="bd-val" id="bd-oz">$—</div></div>
@@ -731,6 +759,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
   let silverGram = silverOz / TROY;
   let currentUnit = 'gram';
   let silverChange = 0;
+  let selectedCurrency = 'USD';
 
   // Simulated historical changes (% from current)
   const PERF = {
@@ -824,7 +853,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
       const kgFmt = isJPY ? fmt(kgVal, 0) : fmt(kgVal, 0);
 
       const cell = document.createElement('div');
-      cell.className = 'rate-cell';
+      cell.className = 'rate-cell' + (c.code === selectedCurrency ? ' active' : '');
       cell.innerHTML = `
         <div class="rate-country">
           <div class="rate-flag">${c.flag}</div>
@@ -836,24 +865,40 @@ const description = "Live silver rates and precious metals calculator. Convert s
         <div class="rate-prices">
           <div class="rate-gram-val">${sym}${gramFmt}</div>
           <div class="rate-kg-val">${sym}${kgFmt} / kg</div>
-          <div class="rate-unit">per gram</div>
+          <div class="rate-unit">per gram · tap to use</div>
         </div>`;
+      cell.addEventListener('click', () => {
+        selectedCurrency = c.code;
+        document.querySelectorAll('.rate-cell').forEach(el => el.classList.remove('active'));
+        cell.classList.add('active');
+        document.getElementById('calc-currency-name').textContent = c.flag + ' ' + c.code;
+        document.getElementById('result-currency-label').textContent = c.code;
+        document.getElementById('result-sym').textContent = sym;
+        calculate();
+        // Scroll to calculator
+        document.querySelector('.hero-right').scrollIntoView({behavior:'smooth', block:'center'});
+      });
       grid.appendChild(cell);
     });
   }
 
   function updateBreakdown() {
-    document.getElementById('bd-gram').textContent = '$' + fmt(silverGram, 4);
-    document.getElementById('bd-oz').textContent = '$' + fmt(silverOz, 2);
-    document.getElementById('bd-kg').textContent = '$' + fmt(silverGram * 1000, 2);
-    document.getElementById('bd-tola').textContent = '$' + fmt(silverGram * TOLA, 4);
+    const rate = FX[selectedCurrency] || 1;
+    const sym = FX_SYM[selectedCurrency] || '$';
+    const dp = selectedCurrency === 'JPY' ? 0 : 4;
+    document.getElementById('bd-gram').textContent = sym + fmt(silverGram * rate, dp);
+    document.getElementById('bd-oz').textContent = sym + fmt(silverOz * rate, 2);
+    document.getElementById('bd-kg').textContent = sym + fmt(silverGram * 1000 * rate, 2);
+    document.getElementById('bd-tola').textContent = sym + fmt(silverGram * TOLA * rate, dp);
   }
 
   function calculate() {
     const amount = parseFloat(document.getElementById('amount').value) || 0;
     const grams = amount * UNITS[currentUnit];
-    const val = grams * silverGram;
+    const rate = FX[selectedCurrency] || 1;
+    const val = grams * silverGram * rate;
     document.getElementById('result-val').textContent = val.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    updateBreakdown();
   }
 
   // Unit chip click handlers
@@ -875,6 +920,13 @@ const description = "Live silver rates and precious metals calculator. Convert s
     const days = 30;
     let p = silverOz * 0.97;
     const pts = [];
+    const dates = [];
+    const now = new Date();
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      dates.push(d);
+    }
     for (let i = 0; i < days; i++) {
       p += (Math.random() - 0.48) * (silverOz * 0.008);
       pts.push(p);
@@ -884,25 +936,35 @@ const description = "Live silver rates and precious metals calculator. Convert s
     const min = Math.min(...pts) * 0.998;
     const max = Math.max(...pts) * 1.002;
     const range = max - min;
-    const W = 800, H = 200, PAD = 16;
+    const W = 800, H = 200, PAD = 20, LEFT = 60;
 
     const coords = pts.map((v, i) => {
-      const x = (i / (days - 1)) * W;
-      const y = H - PAD - ((v - min) / range) * (H - PAD * 2);
+      const x = LEFT + (i / (days - 1)) * (W - LEFT);
+      const y = H - PAD - 20 - ((v - min) / range) * (H - PAD * 2 - 20);
       return `${x},${y}`;
     });
 
     const lastX = W;
-    const lastY = H - PAD - ((silverOz - min) / range) * (H - PAD * 2);
+    const lastY = H - PAD - 20 - ((silverOz - min) / range) * (H - PAD * 2 - 20);
 
     // Y-axis labels
     const steps = 4;
     let yLabels = '';
     for (let i = 0; i <= steps; i++) {
       const val = min + (range * i / steps);
-      const y = H - PAD - (i / steps) * (H - PAD * 2);
-      yLabels += `<text x="8" y="${y + 4}" font-size="11" fill="#777" font-family="Times New Roman">${'$' + fmt(val)}</text>`;
+      const y = H - PAD - 20 - (i / steps) * (H - PAD * 2 - 20);
+      yLabels += `<text x="4" y="${y + 4}" font-size="10" fill="#777" font-family="Times New Roman" text-anchor="start">$${fmt(val)}</text>`;
     }
+
+    // X-axis date labels — show 5 evenly spaced dates
+    let xLabels = '';
+    const xIndices = [0, 7, 14, 21, 29];
+    xIndices.forEach(i => {
+      const x = LEFT + (i / (days - 1)) * (W - LEFT);
+      const d = dates[i];
+      const label = d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+      xLabels += `<text x="${x}" y="${H - 4}" font-size="10" fill="#777" font-family="Times New Roman" text-anchor="middle">${label}</text>`;
+    });
 
     svg.innerHTML = `
       <defs>
@@ -911,8 +973,11 @@ const description = "Live silver rates and precious metals calculator. Convert s
           <stop offset="100%" stop-color="#8C9BAB" stop-opacity="0"/>
         </linearGradient>
       </defs>
+      <line x1="${LEFT}" y1="${PAD}" x2="${LEFT}" y2="${H - PAD - 20}" stroke="#ccc" stroke-width="1"/>
+      <line x1="${LEFT}" y1="${H - PAD - 20}" x2="${W}" y2="${H - PAD - 20}" stroke="#ccc" stroke-width="1"/>
       ${yLabels}
-      <path d="M 0,${H} L ${coords.join(' L ')} L ${W},${H} Z" fill="url(#gsilver)"/>
+      ${xLabels}
+      <path d="M ${coords[0]} L ${coords.join(' L ')} L ${W},${H - PAD - 20} L ${LEFT},${H - PAD - 20} Z" fill="url(#gsilver)"/>
       <path d="M ${coords.join(' L ')}" fill="none" stroke="#5A7080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <circle cx="${lastX}" cy="${lastY}" r="5" fill="#5A7080" stroke="white" stroke-width="2"/>
     `;
