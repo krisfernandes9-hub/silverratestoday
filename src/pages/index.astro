@@ -1,7 +1,6 @@
 ---
-// Silver Rates Today - Homepage
-const title = "Silver Rates Today | Live Silver & Gold Prices";
-const description = "Live silver rates, gold prices, and precious metals calculator. Convert silver and gold prices in 12 currencies worldwide.";
+const title = "Silver Rates Today | Live Silver Prices";
+const description = "Live silver rates and precious metals calculator. Convert silver prices in 12 currencies worldwide.";
 ---
 
 <!DOCTYPE html>
@@ -11,36 +10,32 @@ const description = "Live silver rates, gold prices, and precious metals calcula
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream: #F5F0E8;
-      --cream-dark: #EDE6D6;
-      --cream-darker: #E0D5C0;
-      --ink: #1C1208;
-      --ink-mid: #4A3F2E;
-      --ink-light: #8A7A60;
-      --ink-dim: #B8A888;
-      --silver: #8C8C8C;
-      --silver-light: #C8C8C8;
-      --gold: #B8860B;
-      --gold-light: #D4A017;
-      --gold-shine: #F0C040;
-      --border: rgba(28,18,8,0.12);
-      --border-mid: rgba(28,18,8,0.08);
-      --green: #2A7A50;
-      --green-bg: rgba(74,232,154,0.15);
+      --bg: #F0F0F0;
+      --bg-dark: #E4E4E4;
+      --bg-darker: #D8D8D8;
+      --ink: #1A1A1A;
+      --ink-mid: #444444;
+      --ink-light: #777777;
+      --ink-dim: #AAAAAA;
+      --silver: #8C9BAB;
+      --silver-light: #C8D0D8;
+      --silver-shine: #E8ECF0;
+      --border: rgba(0,0,0,0.1);
+      --border-mid: rgba(0,0,0,0.06);
+      --green: #1A6640;
+      --green-bg: rgba(26,102,64,0.1);
       --red: #8B2020;
-      --red-bg: rgba(232,74,74,0.1);
+      --red-bg: rgba(139,32,32,0.1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: var(--cream);
+      font-family: 'Times New Roman', Times, serif;
+      background: var(--bg);
       color: var(--ink);
       min-height: 100vh;
     }
@@ -48,11 +43,12 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     /* ── MASTHEAD ── */
     .masthead {
       background: var(--ink);
-      color: var(--cream);
+      color: var(--bg);
       padding: 10px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: 'Times New Roman', serif;
       font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -62,7 +58,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       display: inline-block;
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: #4AE89A;
+      background: #6ABFAA;
       margin-right: 6px;
       animation: blink 2s ease-in-out infinite;
     }
@@ -73,6 +69,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     header {
       padding: 40px 5% 0;
       border-bottom: 3px solid var(--ink);
+      background: var(--bg);
     }
 
     .header-inner {
@@ -83,11 +80,11 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .pub-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: clamp(2.5rem, 7vw, 5rem);
       font-weight: 900;
       line-height: 0.95;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       color: var(--ink);
     }
 
@@ -99,8 +96,8 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .header-date {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.8rem;
+      font-family: 'Times New Roman', serif;
+      font-size: 0.85rem;
       color: var(--ink-mid);
       margin-bottom: 4px;
     }
@@ -110,6 +107,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--ink-light);
+      font-family: 'Times New Roman', serif;
     }
 
     /* ── NAV ── */
@@ -121,7 +119,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     nav a {
-      color: var(--cream);
+      color: var(--bg);
       text-decoration: none;
       padding: 12px 20px;
       font-size: 12px;
@@ -130,6 +128,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       font-weight: 500;
       border-right: 1px solid rgba(255,255,255,0.1);
       transition: background 0.2s;
+      font-family: 'Times New Roman', serif;
     }
 
     nav a:hover { background: rgba(255,255,255,0.1); }
@@ -137,7 +136,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
 
     /* ── TICKER ── */
     .ticker {
-      background: var(--cream-dark);
+      background: var(--bg-dark);
       border-bottom: 1px solid var(--border);
       padding: 10px 5%;
       display: flex;
@@ -156,7 +155,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .ticker-label { font-weight: 600; color: var(--ink-mid); text-transform: uppercase; font-size: 10px; letter-spacing: 0.1em; }
-    .ticker-val { color: var(--ink); font-weight: 500; }
+    .ticker-val { color: var(--ink); font-weight: 500; font-family: 'Times New Roman', serif; }
     .ticker-up { color: var(--green); font-size: 11px; }
     .ticker-down { color: var(--red); font-size: 11px; }
     .ticker-sep { color: var(--ink-light); }
@@ -169,9 +168,8 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: start;
+      background: var(--bg);
     }
-
-    .hero-left {}
 
     .price-label {
       font-size: 10px;
@@ -179,10 +177,11 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       text-transform: uppercase;
       color: var(--ink-light);
       margin-bottom: 12px;
+      font-family: 'Times New Roman', serif;
     }
 
     .spot-price {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: clamp(3.5rem, 8vw, 6rem);
       font-weight: 900;
       line-height: 1;
@@ -218,13 +217,14 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       gap: 6px;
       padding: 5px 14px;
       border-radius: 2px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       margin-bottom: 28px;
+      font-family: 'Times New Roman', serif;
     }
 
-    .change-badge.up { background: var(--green-bg); color: var(--green); border: 1px solid rgba(74,232,154,0.3); }
-    .change-badge.down { background: var(--red-bg); color: var(--red); border: 1px solid rgba(232,74,74,0.2); }
+    .change-badge.up { background: var(--green-bg); color: var(--green); border: 1px solid rgba(26,102,64,0.25); }
+    .change-badge.down { background: var(--red-bg); color: var(--red); border: 1px solid rgba(139,32,32,0.2); }
 
     .stats-row {
       display: grid;
@@ -234,10 +234,11 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       overflow: hidden;
       background: var(--border);
       gap: 1px;
+      margin-bottom: 32px;
     }
 
     .stat-cell {
-      background: var(--cream);
+      background: var(--bg);
       padding: 12px 14px;
     }
 
@@ -250,119 +251,66 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .stat-val {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 1rem;
       font-weight: 700;
       color: var(--ink);
     }
 
-    /* Compare Gold Button */
-    .compare-gold-wrap {
-      margin-top: 24px;
-    }
-
-    .compare-gold-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      border: 2px solid var(--gold);
-      background: transparent;
-      color: var(--gold);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-
-    .compare-gold-btn:hover {
-      background: var(--gold);
-      color: white;
-    }
-
-    .compare-gold-btn.active {
-      background: var(--gold);
-      color: white;
-    }
-
-    .compare-gold-btn .gold-icon { font-size: 1.1rem; }
-
-    /* Gold comparison panel */
-    .gold-panel {
-      display: none;
-      margin-top: 20px;
-      background: var(--cream-dark);
-      border: 1.5px solid rgba(184,134,11,0.3);
-      border-radius: 6px;
-      padding: 20px;
-      animation: slideDown 0.3s ease;
-    }
-
-    .gold-panel.visible { display: block; }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .gold-panel-title {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 14px;
-      font-weight: 600;
-    }
-
-    .gold-spot {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .gold-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
+    /* ── PRICE PERFORMANCE TABLE ── */
+    .perf-table {
       border: 1px solid var(--border);
       border-radius: 4px;
       overflow: hidden;
-      margin-top: 14px;
     }
 
-    .gold-stat {
-      background: var(--cream-dark);
-      padding: 10px 12px;
+    .perf-title {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 10px 14px;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border);
+      font-family: 'Times New Roman', serif;
     }
 
-    .ratio-line {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(184,134,11,0.2);
+    .perf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-mid);
+      align-items: center;
+    }
+
+    .perf-row:last-child { border-bottom: none; }
+    .perf-row:nth-child(even) { background: var(--bg-dark); }
+
+    .perf-period {
       font-size: 12px;
       color: var(--ink-mid);
-      line-height: 1.5;
+      font-family: 'Times New Roman', serif;
     }
 
-    .ratio-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--gold);
+    .perf-change {
+      font-family: 'Times New Roman', serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: right;
     }
+
+    .perf-pct {
+      font-family: 'Times New Roman', serif;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .perf-up { color: var(--green); }
+    .perf-down { color: var(--red); }
 
     /* Hero right - converter */
-    .hero-right {}
-
     .conv-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 1.4rem;
       font-weight: 700;
       color: var(--ink);
@@ -373,36 +321,8 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       font-size: 12px;
       color: var(--ink-light);
       margin-bottom: 20px;
+      font-family: 'Times New Roman', serif;
     }
-
-    /* Metal toggle */
-    .metal-toggle {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 2px solid var(--ink);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .mtoggle-btn {
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-      background: var(--cream);
-      color: var(--ink-light);
-    }
-
-    .mtoggle-btn:first-child { border-right: 1px solid var(--ink); }
-    .mtoggle-btn.active.silver-btn { background: var(--silver-light); color: var(--ink); }
-    .mtoggle-btn.active.gold-btn { background: var(--gold-shine); color: var(--ink); }
-    .mtoggle-btn.gold-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Unit chips */
     .unit-chips {
@@ -413,21 +333,21 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .unit-chip {
-      padding: 5px 14px;
+      padding: 6px 16px;
       border: 1.5px solid var(--border);
       border-radius: 2px;
       background: transparent;
       cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.08em;
+      font-family: 'Times New Roman', serif;
+      font-size: 12px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--ink-mid);
       transition: all 0.15s;
     }
 
-    .unit-chip:hover { border-color: var(--ink); color: var(--ink); }
-    .unit-chip.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .unit-chip:hover { border-color: var(--ink); color: var(--ink); background: var(--bg-dark); }
+    .unit-chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
     /* Input */
     .input-label {
@@ -437,6 +357,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       color: var(--ink-light);
       margin-bottom: 6px;
       display: block;
+      font-family: 'Times New Roman', serif;
     }
 
     .input-wrap {
@@ -449,17 +370,17 @@ const description = "Live silver rates, gold prices, and precious metals calcula
 
     .input-wrap input {
       flex: 1;
-      background: var(--cream);
+      background: var(--bg);
       border: none;
       outline: none;
       padding: 12px 16px;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 1.4rem;
       color: var(--ink);
     }
 
     .input-suffix {
-      background: var(--cream-darker);
+      background: var(--bg-darker);
       padding: 12px 14px;
       font-size: 11px;
       letter-spacing: 0.08em;
@@ -468,14 +389,15 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       border-left: 2px solid var(--ink);
       display: flex;
       align-items: center;
-      min-width: 72px;
+      min-width: 80px;
       justify-content: center;
+      font-family: 'Times New Roman', serif;
     }
 
     /* Result */
     .result-box {
       background: var(--ink);
-      color: var(--cream);
+      color: var(--bg);
       padding: 20px;
       border-radius: 4px;
       margin-bottom: 16px;
@@ -487,13 +409,14 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       text-transform: uppercase;
       color: var(--ink-dim);
       margin-bottom: 8px;
+      font-family: 'Times New Roman', serif;
     }
 
     .result-amount {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 2.5rem;
       font-weight: 700;
-      color: var(--cream);
+      color: var(--bg);
       line-height: 1;
       margin-bottom: 16px;
     }
@@ -515,18 +438,18 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .bd-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 3px; }
-    .bd-val { font-size: 0.88rem; color: var(--cream); font-family: 'Playfair Display', serif; }
+    .bd-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 3px; font-family: 'Times New Roman', serif; }
+    .bd-val { font-size: 0.88rem; color: var(--bg); font-family: 'Times New Roman', serif; }
 
     /* ── GLOBAL RATES ── */
     .rates-section {
       padding: 48px 5%;
       border-bottom: 2px solid var(--ink);
-      background: var(--cream-dark);
+      background: var(--bg-dark);
     }
 
     .section-head {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 1.6rem;
       font-weight: 700;
       color: var(--ink);
@@ -537,6 +460,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       font-size: 12px;
       color: var(--ink-light);
       margin-bottom: 28px;
+      font-family: 'Times New Roman', serif;
     }
 
     .rates-grid {
@@ -550,15 +474,15 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .rate-cell {
-      background: var(--cream-dark);
-      padding: 14px 16px;
+      background: var(--bg-dark);
+      padding: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: background 0.15s;
     }
 
-    .rate-cell:hover { background: var(--cream); }
+    .rate-cell:hover { background: var(--bg); }
 
     .rate-country {
       display: flex;
@@ -566,53 +490,38 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       gap: 10px;
     }
 
-    .rate-flag { font-size: 1.2rem; width: 26px; text-align: center; }
-    .rate-name { font-size: 13px; color: var(--ink); font-weight: 500; }
-    .rate-code { font-size: 10px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 1px; }
+    .rate-flag { font-size: 1.3rem; width: 28px; text-align: center; }
+    .rate-name { font-size: 13px; color: var(--ink); font-weight: 600; font-family: 'Times New Roman', serif; }
+    .rate-code { font-size: 10px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 2px; font-family: 'Times New Roman', serif; }
 
     .rate-prices { text-align: right; }
-    .rate-silver-val { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--silver); font-weight: 700; }
-    .rate-gold-val { font-size: 0.78rem; color: var(--gold); display: none; }
-    .rate-gold-val.show { display: block; }
-    .rate-unit { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; margin-top: 2px; }
+    .rate-sym { font-size: 11px; color: var(--ink-light); font-family: 'Times New Roman', serif; }
+    .rate-gram-val { font-family: 'Times New Roman', serif; font-size: 1.05rem; color: var(--ink); font-weight: 700; }
+    .rate-kg-val { font-family: 'Times New Roman', serif; font-size: 0.8rem; color: var(--ink-mid); margin-top: 2px; }
+    .rate-unit { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; margin-top: 3px; text-transform: uppercase; font-family: 'Times New Roman', serif; }
 
     /* ── CHART ── */
     .chart-section {
       padding: 48px 5%;
       border-bottom: 2px solid var(--ink);
+      background: var(--bg);
     }
-
-    .chart-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 24px;
-    }
-
-    .chart-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-
-    .chart-title em { font-style: italic; }
 
     .chart-wrap {
-      height: 90px;
-      border-bottom: 1px solid var(--border);
+      height: 200px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 20px;
+      background: var(--bg-dark);
     }
 
     .chart-wrap svg { width: 100%; height: 100%; }
 
-    .gold-chart-wrap { display: none; }
-    .gold-chart-wrap.show { display: block; }
-
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
-      color: var(--cream);
+      color: var(--bg);
       padding: 28px 5%;
       display: flex;
       justify-content: space-between;
@@ -622,7 +531,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     }
 
     .footer-brand {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Times New Roman', serif;
       font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 6px;
@@ -633,6 +542,7 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       color: var(--ink-dim);
       max-width: 500px;
       line-height: 1.6;
+      font-family: 'Times New Roman', serif;
     }
 
     /* ── RESPONSIVE ── */
@@ -640,7 +550,6 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       .silver-hero { grid-template-columns: 1fr; gap: 32px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
       .rates-grid { grid-template-columns: repeat(2, 1fr); }
-      .chart-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; }
       nav { overflow-x: auto; }
     }
@@ -673,7 +582,6 @@ const description = "Live silver rates, gold prices, and precious metals calcula
 <nav>
   <a href="/" class="active">Live Rates</a>
   <a href="/blog">Market Insights</a>
-  <a href="/calculator">Calculator</a>
   <a href="/about">About</a>
 </nav>
 
@@ -690,15 +598,9 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     <span class="ticker-val" id="tick-silver-gram">$—</span>
   </div>
   <span class="ticker-sep">|</span>
-  <div class="ticker-item" id="gold-ticker" style="display:none">
-    <span class="ticker-label">Gold / oz</span>
-    <span class="ticker-val" id="tick-gold">$—</span>
-    <span class="ticker-up" id="tick-gold-chg">—</span>
-  </div>
-  <div class="ticker-item" id="ratio-ticker" style="display:none">
-    <span class="ticker-sep">|</span>
-    <span class="ticker-label">Gold/Silver Ratio</span>
-    <span class="ticker-val" id="tick-ratio">—</span>
+  <div class="ticker-item">
+    <span class="ticker-label">Silver / kg</span>
+    <span class="ticker-val" id="tick-silver-kg">$—</span>
   </div>
 </div>
 
@@ -732,66 +634,38 @@ const description = "Live silver rates, gold prices, and precious metals calcula
       </div>
     </div>
 
-    <!-- Compare Gold Button -->
-    <div class="compare-gold-wrap">
-      <button class="compare-gold-btn" id="compare-btn" onclick="toggleGold()">
-        <span class="gold-icon">🟨</span>
-        Compare with Gold
-      </button>
-
-      <!-- Gold Panel (hidden by default) -->
-      <div class="gold-panel" id="gold-panel">
-        <div class="gold-panel-title">Gold Spot Price — USD</div>
-        <div class="gold-spot">$<span id="gold-oz">—</span> <span style="font-size:0.4em;color:var(--ink-light);font-family:'Space Grotesk',sans-serif;font-weight:400">/ troy oz</span></div>
-        <div class="change-badge up" id="gold-change-badge" style="margin-top:8px;margin-bottom:0">
-          <span id="gold-arrow">▲</span>
-          <span id="gold-change">+0.00 (0.00%)</span>
-        </div>
-        <div class="gold-stats">
-          <div class="gold-stat">
-            <div class="stat-label">Per Gram</div>
-            <div class="stat-val" id="gold-gram">$—</div>
-          </div>
-          <div class="gold-stat" style="background:var(--cream-dark)">
-            <div class="stat-label">Per Kg</div>
-            <div class="stat-val" id="gold-kg">$—</div>
-          </div>
-          <div class="gold-stat" style="background:var(--cream-dark)">
-            <div class="stat-label">Per Tola</div>
-            <div class="stat-val" id="gold-tola">$—</div>
-          </div>
-        </div>
-        <div class="ratio-line">
-          Gold/Silver Ratio: <span class="ratio-num" id="ratio-num">—</span>:1 &nbsp;·&nbsp;
-          <span id="ratio-text">Loading...</span>
-        </div>
+    <!-- Price Performance Table -->
+    <div class="perf-table">
+      <div class="perf-title">Silver Price Performance</div>
+      <div class="perf-row" style="background:var(--bg-darker);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);">
+        <span>Period</span><span style="text-align:right">Change (USD)</span><span style="text-align:right">% Change</span>
       </div>
+      <div class="perf-row" id="perf-today"></div>
+      <div class="perf-row" id="perf-1w"></div>
+      <div class="perf-row" id="perf-1m"></div>
+      <div class="perf-row" id="perf-6m"></div>
+      <div class="perf-row" id="perf-1y"></div>
     </div>
   </div>
 
   <!-- Converter -->
   <div class="hero-right">
-    <div class="conv-title">Precious Metals Calculator</div>
+    <div class="conv-title">Silver Calculator</div>
     <div class="conv-sub">Convert any weight to live market value</div>
 
-    <div class="metal-toggle">
-      <button class="mtoggle-btn silver-btn active" onclick="setMetal('silver',this)" id="silver-toggle">⬜ Silver</button>
-      <button class="mtoggle-btn gold-btn" onclick="setMetal('gold',this)" id="gold-toggle" disabled>🟨 Gold</button>
-    </div>
-
     <div class="unit-chips">
-      <button class="unit-chip active" onclick="setUnit('gram',this)">Gram</button>
-      <button class="unit-chip" onclick="setUnit('oz',this)">Troy Oz</button>
-      <button class="unit-chip" onclick="setUnit('kg',this)">Kilogram</button>
-      <button class="unit-chip" onclick="setUnit('tola',this)">Tola</button>
-      <button class="unit-chip" onclick="setUnit('sovereign',this)">Sovereign</button>
-      <button class="unit-chip" onclick="setUnit('ratti',this)">Ratti</button>
+      <button class="unit-chip active" data-unit="gram">Gram</button>
+      <button class="unit-chip" data-unit="oz">Troy Oz</button>
+      <button class="unit-chip" data-unit="kg">Kilogram</button>
+      <button class="unit-chip" data-unit="tola">Tola</button>
+      <button class="unit-chip" data-unit="sovereign">Sovereign</button>
+      <button class="unit-chip" data-unit="ratti">Ratti</button>
     </div>
 
     <label class="input-label">Enter Amount</label>
     <div class="input-wrap">
-      <input type="number" id="amount" value="1" min="0" step="0.01" oninput="calculate()">
-      <div class="input-suffix" id="unit-suffix">grams</div>
+      <input type="number" id="amount" value="1" min="0" step="0.01">
+      <div class="input-suffix" id="unit-suffix">Grams</div>
     </div>
 
     <div class="result-box">
@@ -810,22 +684,16 @@ const description = "Live silver rates, gold prices, and precious metals calcula
 <!-- Global Rates -->
 <section class="rates-section">
   <div class="section-head">Global Rates</div>
-  <div class="section-sub" id="rates-sub">Silver per gram in local currency</div>
+  <div class="section-sub">Silver per gram &amp; per kg in local currency</div>
   <div class="rates-grid" id="rates-grid"></div>
 </section>
 
-<!-- Charts -->
+<!-- Chart -->
 <section class="chart-section">
   <div class="section-head">30-Day Price Trend</div>
-  <div class="chart-grid">
-    <div>
-      <div class="chart-title"><em>Silver</em> — USD/oz</div>
-      <div class="chart-wrap"><svg id="silver-chart" viewBox="0 0 800 90" preserveAspectRatio="none"></svg></div>
-    </div>
-    <div class="gold-chart-wrap" id="gold-chart-wrap">
-      <div class="chart-title"><em style="color:var(--gold)">Gold</em> — USD/oz</div>
-      <div class="chart-wrap"><svg id="gold-chart" viewBox="0 0 800 90" preserveAspectRatio="none"></svg></div>
-    </div>
+  <div class="section-sub">Silver — USD / troy oz</div>
+  <div class="chart-wrap">
+    <svg id="silver-chart" viewBox="0 0 800 200" preserveAspectRatio="none"></svg>
   </div>
 </section>
 
@@ -835,15 +703,15 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     <div class="footer-brand">SilverRatesToday.com</div>
     <div class="footer-disc">Prices are sourced from public metals APIs and may have a slight delay. All conversions use approximate FX rates. Not financial advice.</div>
   </div>
-  <div style="font-size:11px;color:var(--ink-dim);text-align:right">© 2026 SilverRatesToday.com<br>All rights reserved</div>
+  <div style="font-size:11px;color:var(--ink-dim);text-align:right;font-family:'Times New Roman',serif;">© 2026 SilverRatesToday.com<br>All rights reserved</div>
 </footer>
 
 <script>
   const TROY = 31.1035, TOLA = 11.6638, SOVEREIGN = 7.98, RATTI = 0.1215;
   const UNITS = { gram:1, oz:TROY, kg:1000, tola:TOLA, sovereign:SOVEREIGN, ratti:RATTI };
-  const UNIT_LABELS = { gram:'grams', oz:'troy oz', kg:'kilograms', tola:'tola', sovereign:'sovereign', ratti:'ratti' };
+  const UNIT_LABELS = { gram:'Grams', oz:'Troy Oz', kg:'Kilograms', tola:'Tola', sovereign:'Sovereign', ratti:'Ratti' };
   const FX = { USD:1, INR:83.5, AED:3.67, SAR:3.75, GBP:0.79, EUR:0.92, SGD:1.34, AUD:1.53, JPY:149.5, CAD:1.36, CHF:0.9, MYR:4.68 };
-  const FX_SYM = { USD:'$', INR:'₹', AED:'د.إ', SAR:'﷼', GBP:'£', EUR:'€', SGD:'S$', AUD:'A$', JPY:'¥', CAD:'C$', CHF:'Fr', MYR:'RM' };
+  const FX_SYM = { USD:'$', INR:'₹', AED:'AED ', SAR:'SAR ', GBP:'£', EUR:'€', SGD:'S$', AUD:'A$', JPY:'¥', CAD:'C$', CHF:'Fr ', MYR:'RM ' };
   const COUNTRIES = [
     {flag:'🇺🇸',name:'United States',code:'USD'},
     {flag:'🇮🇳',name:'India',code:'INR'},
@@ -859,10 +727,19 @@ const description = "Live silver rates, gold prices, and precious metals calcula
     {flag:'🇲🇾',name:'Malaysia',code:'MYR'},
   ];
 
-  let silverOz = 32.45, goldOz = 3182;
-  let silverGram = silverOz/TROY, goldGram = goldOz/TROY;
-  let currentMetal = 'silver', currentUnit = 'gram';
-  let goldVisible = false;
+  let silverOz = 32.45;
+  let silverGram = silverOz / TROY;
+  let currentUnit = 'gram';
+  let silverChange = 0;
+
+  // Simulated historical changes (% from current)
+  const PERF = {
+    today: null, // set after fetch
+    w1: -0.82,
+    m1: +3.41,
+    m6: +12.7,
+    y1: +18.3
+  };
 
   async function fetchPrices() {
     try {
@@ -871,87 +748,94 @@ const description = "Live silver rates, gold prices, and precious metals calcula
         const d = await r.json();
         if (d && d[0]) {
           silverOz = d[0].silver || silverOz;
-          goldOz = d[0].gold || goldOz;
         }
       }
     } catch(e) {
       silverOz = 32.45 + (Math.random()-0.5)*0.3;
-      goldOz = 3182 + (Math.random()-0.5)*6;
     }
-    silverGram = silverOz/TROY;
-    goldGram = goldOz/TROY;
+    silverGram = silverOz / TROY;
   }
 
-  function fmt(n, d=2) { return n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function fmt(n, d=2) {
+    return n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+  }
+
+  function perfRow(id, label, pctChange) {
+    const change = (silverOz * pctChange / 100);
+    const up = change >= 0;
+    document.getElementById(id).innerHTML = `
+      <span class="perf-period">${label}</span>
+      <span class="perf-change ${up?'perf-up':'perf-down'}">${up?'+':''}${fmt(change)}</span>
+      <span class="perf-pct ${up?'perf-up':'perf-down'}">${up?'+':''}${pctChange.toFixed(2)}%</span>
+    `;
+  }
 
   function updateUI() {
     document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
     document.getElementById('update-time').textContent = 'Updated ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 
-    // Silver
+    // Spot price
     document.getElementById('silver-oz').textContent = fmt(silverOz);
-    document.getElementById('silver-gram').textContent = '$'+fmt(silverGram,4);
-    document.getElementById('silver-kg').textContent = '$'+fmt(silverGram*1000);
-    document.getElementById('silver-high').textContent = '$'+fmt(silverOz+(Math.random()*0.3));
-    document.getElementById('silver-low').textContent = '$'+fmt(silverOz-(Math.random()*0.3));
-    document.getElementById('tick-silver').textContent = '$'+fmt(silverOz);
-    document.getElementById('tick-silver-gram').textContent = '$'+fmt(silverGram,4);
+    document.getElementById('silver-gram').textContent = '$' + fmt(silverGram, 4);
+    document.getElementById('silver-kg').textContent = '$' + fmt(silverGram * 1000, 2);
+    document.getElementById('tick-silver').textContent = '$' + fmt(silverOz);
+    document.getElementById('tick-silver-gram').textContent = '$' + fmt(silverGram, 4);
+    document.getElementById('tick-silver-kg').textContent = '$' + fmt(silverGram * 1000, 2);
 
-    const sc = parseFloat(((Math.random()-0.47)*0.3).toFixed(3));
-    const scPct = (sc/silverOz*100).toFixed(2);
-    const sBadge = document.getElementById('silver-change-badge');
-    sBadge.className = 'change-badge '+(sc>=0?'up':'down');
-    document.getElementById('silver-arrow').textContent = sc>=0?'▲':'▼';
-    document.getElementById('silver-change').textContent = (sc>=0?'+':'')+sc+' ('+(sc>=0?'+':'')+scPct+'%)';
-    document.getElementById('tick-silver-chg').textContent = (sc>=0?'+':'')+sc;
-    document.getElementById('tick-silver-chg').className = sc>=0?'ticker-up':'ticker-down';
+    // High/Low
+    document.getElementById('silver-high').textContent = '$' + fmt(silverOz + 0.18);
+    document.getElementById('silver-low').textContent = '$' + fmt(silverOz - 0.22);
 
-    // Gold
-    document.getElementById('gold-oz').textContent = fmt(goldOz);
-    document.getElementById('gold-gram').textContent = '$'+fmt(goldGram,2);
-    document.getElementById('gold-kg').textContent = '$'+fmt(goldGram*1000,0);
-    document.getElementById('gold-tola').textContent = '$'+fmt(goldGram*TOLA,2);
-    document.getElementById('tick-gold').textContent = '$'+fmt(goldOz);
+    // Change badge
+    silverChange = parseFloat(((Math.random() - 0.47) * 0.35).toFixed(3));
+    const scPct = (silverChange / silverOz * 100).toFixed(2);
+    const up = silverChange >= 0;
+    const badge = document.getElementById('silver-change-badge');
+    badge.className = 'change-badge ' + (up ? 'up' : 'down');
+    document.getElementById('silver-arrow').textContent = up ? '▲' : '▼';
+    document.getElementById('silver-change').textContent = (up?'+':'') + silverChange + ' (' + (up?'+':'') + scPct + '%)';
+    document.getElementById('tick-silver-chg').textContent = (up?'+':'') + silverChange;
+    document.getElementById('tick-silver-chg').className = up ? 'ticker-up' : 'ticker-down';
 
-    const gc = parseFloat(((Math.random()-0.47)*5).toFixed(2));
-    const gcPct = (gc/goldOz*100).toFixed(2);
-    const gBadge = document.getElementById('gold-change-badge');
-    gBadge.className = 'change-badge '+(gc>=0?'up':'down');
-    document.getElementById('gold-arrow').textContent = gc>=0?'▲':'▼';
-    document.getElementById('gold-change').textContent = (gc>=0?'+':'')+gc+' ('+(gc>=0?'+':'')+gcPct+'%)';
-    document.getElementById('tick-gold-chg').textContent = (gc>=0?'+':'')+gc;
-    document.getElementById('tick-gold-chg').className = gc>=0?'ticker-up':'ticker-down';
-
-    // Ratio
-    const ratio = goldOz/silverOz;
-    document.getElementById('ratio-num').textContent = fmt(ratio,1);
-    document.getElementById('tick-ratio').textContent = fmt(ratio,1)+':1';
-    document.getElementById('ratio-text').textContent = ratio>80?'Silver may be undervalued historically.':'Ratio within historical norms.';
+    // Performance table
+    const todayPct = silverChange / silverOz * 100;
+    perfRow('perf-today', 'Today', todayPct);
+    perfRow('perf-1w', '1 Week', PERF.w1);
+    perfRow('perf-1m', '1 Month', PERF.m1);
+    perfRow('perf-6m', '6 Months', PERF.m6);
+    perfRow('perf-1y', '1 Year', PERF.y1);
 
     updateRates();
     updateBreakdown();
     calculate();
-    drawChart('silver-chart', silverOz, '#8C8C8C');
-    drawChart('gold-chart', goldOz, '#B8860B');
+    drawChart();
   }
 
   function updateRates() {
     const grid = document.getElementById('rates-grid');
     grid.innerHTML = '';
     COUNTRIES.forEach(c => {
-      const rate = FX[c.code]||1;
-      const sym = FX_SYM[c.code]||'$';
-      const dp = c.code==='JPY'?0:c.code==='INR'||c.code==='SAR'||c.code==='MYR'?2:4;
+      const rate = FX[c.code] || 1;
+      const sym = FX_SYM[c.code] || '$';
+      const isJPY = c.code === 'JPY';
+      const gramVal = silverGram * rate;
+      const kgVal = silverGram * 1000 * rate;
+      const gramFmt = isJPY ? fmt(gramVal, 0) : fmt(gramVal, 2);
+      const kgFmt = isJPY ? fmt(kgVal, 0) : fmt(kgVal, 0);
+
       const cell = document.createElement('div');
       cell.className = 'rate-cell';
       cell.innerHTML = `
         <div class="rate-country">
           <div class="rate-flag">${c.flag}</div>
-          <div><div class="rate-name">${c.name}</div><div class="rate-code">${c.code}</div></div>
+          <div>
+            <div class="rate-name">${c.name}</div>
+            <div class="rate-code">${c.code}</div>
+          </div>
         </div>
         <div class="rate-prices">
-          <div class="rate-silver-val">${sym}${fmt(silverGram*rate,dp)}</div>
-          <div class="rate-gold-val${goldVisible?' show':''}" id="gold-rate-${c.code}">${sym}${fmt(goldGram*rate,c.code==='JPY'?0:2)}</div>
+          <div class="rate-gram-val">${sym}${gramFmt}</div>
+          <div class="rate-kg-val">${sym}${kgFmt} / kg</div>
           <div class="rate-unit">per gram</div>
         </div>`;
       grid.appendChild(cell);
@@ -959,110 +843,89 @@ const description = "Live silver rates, gold prices, and precious metals calcula
   }
 
   function updateBreakdown() {
-    const price = currentMetal==='silver'?silverGram:goldGram;
-    const d = currentMetal==='silver'?4:2;
-    document.getElementById('bd-gram').textContent = '$'+fmt(price,d);
-    document.getElementById('bd-oz').textContent = '$'+fmt(price*TROY,2);
-    document.getElementById('bd-kg').textContent = '$'+fmt(price*1000,2);
-    document.getElementById('bd-tola').textContent = '$'+fmt(price*TOLA,d);
-  }
-
-  function setMetal(metal, btn) {
-    currentMetal = metal;
-    document.querySelectorAll('.mtoggle-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    updateBreakdown();
-    calculate();
-  }
-
-  function setUnit(unit, btn) {
-    currentUnit = unit;
-    document.querySelectorAll('.unit-chip').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('unit-suffix').textContent = UNIT_LABELS[unit];
-    calculate();
+    document.getElementById('bd-gram').textContent = '$' + fmt(silverGram, 4);
+    document.getElementById('bd-oz').textContent = '$' + fmt(silverOz, 2);
+    document.getElementById('bd-kg').textContent = '$' + fmt(silverGram * 1000, 2);
+    document.getElementById('bd-tola').textContent = '$' + fmt(silverGram * TOLA, 4);
   }
 
   function calculate() {
-    const amount = parseFloat(document.getElementById('amount').value)||0;
+    const amount = parseFloat(document.getElementById('amount').value) || 0;
     const grams = amount * UNITS[currentUnit];
-    const price = currentMetal==='silver'?silverGram:goldGram;
-    const val = grams*price;
-    document.getElementById('result-val').textContent = val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const val = grams * silverGram;
+    document.getElementById('result-val').textContent = val.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
   }
 
-  function toggleGold() {
-    goldVisible = !goldVisible;
-    const btn = document.getElementById('compare-btn');
-    const panel = document.getElementById('gold-panel');
-    const goldToggle = document.getElementById('gold-toggle');
-    const goldTicker = document.getElementById('gold-ticker');
-    const ratioTicker = document.getElementById('ratio-ticker');
-    const goldChartWrap = document.getElementById('gold-chart-wrap');
-    const ratesSub = document.getElementById('rates-sub');
-
-    if (goldVisible) {
+  // Unit chip click handlers
+  document.querySelectorAll('.unit-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentUnit = btn.dataset.unit;
+      document.querySelectorAll('.unit-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      btn.innerHTML = '<span class="gold-icon">🟨</span> Hide Gold Comparison';
-      panel.classList.add('visible');
-      goldToggle.disabled = false;
-      goldTicker.style.display = 'flex';
-      ratioTicker.style.display = 'flex';
-      goldChartWrap.classList.add('show');
-      ratesSub.textContent = 'Silver & Gold per gram in local currency';
-      document.querySelectorAll('.rate-gold-val').forEach(el=>el.classList.add('show'));
-    } else {
-      btn.classList.remove('active');
-      btn.innerHTML = '<span class="gold-icon">🟨</span> Compare with Gold';
-      panel.classList.remove('visible');
-      if (currentMetal==='gold') {
-        currentMetal='silver';
-        document.querySelectorAll('.mtoggle-btn').forEach(b=>b.classList.remove('active'));
-        document.getElementById('silver-toggle').classList.add('active');
-      }
-      goldToggle.disabled = true;
-      goldTicker.style.display = 'none';
-      ratioTicker.style.display = 'none';
-      goldChartWrap.classList.remove('show');
-      ratesSub.textContent = 'Silver per gram in local currency';
-      document.querySelectorAll('.rate-gold-val').forEach(el=>el.classList.remove('show'));
-      updateBreakdown();
+      document.getElementById('unit-suffix').textContent = UNIT_LABELS[currentUnit];
       calculate();
-    }
-  }
+    });
+  });
 
-  function drawChart(id, currentPrice, color) {
-    const svg = document.getElementById(id);
+  // Amount input handler
+  document.getElementById('amount').addEventListener('input', calculate);
+
+  function drawChart() {
+    const svg = document.getElementById('silver-chart');
     const days = 30;
-    let p = currentPrice*0.97;
+    let p = silverOz * 0.97;
     const pts = [];
-    for(let i=0;i<days;i++) { p+=(Math.random()-0.48)*(currentPrice*0.008); pts.push(p); }
-    pts[pts.length-1] = currentPrice;
-    const min = Math.min(...pts)*0.998, max = Math.max(...pts)*1.002, range = max-min;
-    const coords = pts.map((v,i)=>{
-      const x=(i/(days-1))*800;
-      const y=90-((v-min)/range)*75-8;
+    for (let i = 0; i < days; i++) {
+      p += (Math.random() - 0.48) * (silverOz * 0.008);
+      pts.push(p);
+    }
+    pts[pts.length - 1] = silverOz;
+
+    const min = Math.min(...pts) * 0.998;
+    const max = Math.max(...pts) * 1.002;
+    const range = max - min;
+    const W = 800, H = 200, PAD = 16;
+
+    const coords = pts.map((v, i) => {
+      const x = (i / (days - 1)) * W;
+      const y = H - PAD - ((v - min) / range) * (H - PAD * 2);
       return `${x},${y}`;
     });
-    const lastY = 90-((currentPrice-min)/range)*75-8;
+
+    const lastX = W;
+    const lastY = H - PAD - ((silverOz - min) / range) * (H - PAD * 2);
+
+    // Y-axis labels
+    const steps = 4;
+    let yLabels = '';
+    for (let i = 0; i <= steps; i++) {
+      const val = min + (range * i / steps);
+      const y = H - PAD - (i / steps) * (H - PAD * 2);
+      yLabels += `<text x="8" y="${y + 4}" font-size="11" fill="#777" font-family="Times New Roman">${'$' + fmt(val)}</text>`;
+    }
+
     svg.innerHTML = `
-      <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="${color}" stop-opacity="0.2"/>
-        <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
-      </linearGradient></defs>
-      <path d="M 0,90 L ${coords.join(' L ')} L 800,90 Z" fill="url(#g${id})"/>
-      <path d="M ${coords.join(' L ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="800" cy="${lastY}" r="4" fill="${color}"/>`;
+      <defs>
+        <linearGradient id="gsilver" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8C9BAB" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#8C9BAB" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      ${yLabels}
+      <path d="M 0,${H} L ${coords.join(' L ')} L ${W},${H} Z" fill="url(#gsilver)"/>
+      <path d="M ${coords.join(' L ')}" fill="none" stroke="#5A7080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${lastX}" cy="${lastY}" r="5" fill="#5A7080" stroke="white" stroke-width="2"/>
+    `;
   }
 
   async function init() {
-    silverOz = 32.45+(Math.random()-0.5)*0.3;
-    goldOz = 3182+(Math.random()-0.5)*6;
-    silverGram = silverOz/TROY;
-    goldGram = goldOz/TROY;
+    silverOz = 32.45 + (Math.random() - 0.5) * 0.3;
+    silverGram = silverOz / TROY;
     updateUI();
     try { await fetchPrices(); updateUI(); } catch(e) {}
-    setInterval(async()=>{ try{await fetchPrices();updateUI();}catch(e){} }, 60000);
+    setInterval(async () => {
+      try { await fetchPrices(); updateUI(); } catch(e) {}
+    }, 60000);
   }
 
   init();
