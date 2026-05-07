@@ -410,10 +410,11 @@ const description = "Live silver rates and precious metals calculator. Convert s
     tbody.innerHTML=rows.map(([label,pct])=>{
       const change=silverOz*pct/100;
       const up=change>=0;
+      const color=up?'#0EA371':'#E53E3E';
       return `<tr>
-        <td style="color:var(--ink-2);font-weight:500">${label}</td>
-        <td class="${up?'perf-up':'perf-down'}">${up?'+':''}${fmt(change)}</td>
-        <td class="${up?'perf-up':'perf-down'}">${up?'+':''}${pct.toFixed(2)}%</td>
+        <td style="color:#3D4A5C;font-weight:500;font-family:'Times New Roman',serif;padding:12px 20px;border-bottom:1px solid #E2E6EA">${label}</td>
+        <td style="color:${color};font-weight:600;font-family:'Times New Roman',serif;text-align:right;padding:12px 20px;border-bottom:1px solid #E2E6EA">${up?'+':''}${fmt(change)}</td>
+        <td style="color:${color};font-weight:600;font-family:'Times New Roman',serif;text-align:right;padding:12px 20px;border-bottom:1px solid #E2E6EA">${up?'+':''}${pct.toFixed(2)}%</td>
       </tr>`;
     }).join('');
 
@@ -449,14 +450,18 @@ const description = "Live silver rates and precious metals calculator. Convert s
       `;
 
       cell.innerHTML=`
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-          <span style="font-size:1.3rem">${c.flag}</span>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="font-size:1.6rem;line-height:1;min-width:28px">${c.flag}</div>
           <div>
             <div style="font-size:13px;font-weight:700;color:${isActive?'#1a4d7c':'#1A1F2E'};font-family:'Times New Roman',serif">${c.name}</div>
-            <div style="font-size:10px;font-weight:600;color:#9AAABB;letter-spacing:0.06em;margin-top:1px;font-family:'Times New Roman',serif">${c.code}</div>
+            <div style="font-size:10px;font-weight:700;color:#9AAABB;letter-spacing:0.08em;margin-top:2px;font-family:'Times New Roman',serif">${c.code}</div>
           </div>
         </div>
-        <div style="height:1px;background:#E2E6EA;margin-bottom:10px"></div>
+        <div style="height:1px;background:#E2E6EA;margin-bottom:12px"></div>
+        <div style="font-family:'Times New Roman',serif;font-size:1.2rem;font-weight:700;color:#1A1F2E;margin-bottom:3px;font-style:italic">${sym}${gramFmt}</div>
+        <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:8px">${sym}${kgFmt} / kg</div>
+        <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
+      `;
         <div style="font-family:'Times New Roman',serif;font-size:1.15rem;font-weight:700;color:#1A1F2E;margin-bottom:2px;font-style:italic">${sym}${gramFmt}</div>
         <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:6px">${sym}${kgFmt} / kg</div>
         <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
@@ -695,21 +700,25 @@ const description = "Live silver rates and precious metals calculator. Convert s
   function buildFAQ() {
     const list = document.getElementById('faq-list');
     list.innerHTML = FAQS.map((f,i) => `
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFAQ(${i})" id="faq-q-${i}">
+      <div style="border-bottom:1px solid #E2E6EA">
+        <div onclick="toggleFAQ(${i})" id="faq-q-${i}" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Times New Roman',serif;font-size:14px;font-weight:600;color:#1A1F2E;gap:16px;user-select:none">
           <span>${f.q}</span>
-          <span class="faq-icon">+</span>
+          <span id="faq-icon-${i}" style="font-size:20px;color:#6B7A8D;flex-shrink:0;transition:transform 0.2s;font-weight:300;line-height:1">+</span>
         </div>
-        <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+        <div id="faq-a-${i}" style="display:none;padding:0 20px 16px 20px;font-family:'Times New Roman',serif;font-size:13px;color:#6B7A8D;line-height:1.7">${f.a}</div>
       </div>
     `).join('');
   }
 
   function toggleFAQ(i) {
-    const q = document.getElementById('faq-q-'+i);
     const a = document.getElementById('faq-a-'+i);
-    q.classList.toggle('open');
-    a.classList.toggle('open');
+    const icon = document.getElementById('faq-icon-'+i);
+    const q = document.getElementById('faq-q-'+i);
+    const isOpen = a.style.display === 'block';
+    a.style.display = isOpen ? 'none' : 'block';
+    icon.textContent = isOpen ? '+' : '×';
+    icon.style.color = isOpen ? '#6B7A8D' : '#1a4d7c';
+    q.style.color = isOpen ? '#1A1F2E' : '#1a4d7c';
   }
 
   async function init(){
