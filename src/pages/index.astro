@@ -149,7 +149,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
 <!-- Topbar -->
 <div class="topbar">
   <div class="logo">
-    <div class="logo-icon">●</div>
+    <div class="logo-icon">S</div>
     SilverRatesToday
   </div>
   <nav class="nav-links">
@@ -716,7 +716,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
     const q = document.getElementById('faq-q-'+i);
     const isOpen = a.style.display === 'block';
     a.style.display = isOpen ? 'none' : 'block';
-    icon.textContent = isOpen ? '+' : '×';
+    icon.textContent = isOpen ? '+' : '-';
     icon.style.color = isOpen ? '#6B7A8D' : '#1a4d7c';
     q.style.color = isOpen ? '#1A1F2E' : '#1a4d7c';
   }
