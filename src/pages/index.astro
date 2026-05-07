@@ -462,10 +462,6 @@ const description = "Live silver rates and precious metals calculator. Convert s
         <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:8px">${sym}${kgFmt} / kg</div>
         <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
       `;
-        <div style="font-family:'Times New Roman',serif;font-size:1.15rem;font-weight:700;color:#1A1F2E;margin-bottom:2px;font-style:italic">${sym}${gramFmt}</div>
-        <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:6px">${sym}${kgFmt} / kg</div>
-        <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
-      `;
 
       cell.addEventListener('mouseenter',()=>{if(!isActive){cell.style.borderColor='#1a4d7c';cell.style.background='#F0F7FF';cell.style.boxShadow='0 6px 20px rgba(26,77,124,0.14)';cell.style.transform='translateY(-2px)';}});
       cell.addEventListener('mouseleave',()=>{if(!isActive){cell.style.borderColor='#E2E6EA';cell.style.background='#FFFFFF';cell.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';cell.style.transform='translateY(0)';}});
