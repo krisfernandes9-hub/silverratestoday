@@ -3,31 +3,33 @@ const title = "Silver Rates Today | Live Silver Prices";
 const description = "Live silver rates and precious metals calculator. Convert silver prices in 12 currencies worldwide.";
 ---
 
-<!-- SilverRatesToday v1.5 -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <style>
     :root {
-      --bg: #F0F0F0;
-      --bg-dark: #E4E4E4;
-      --bg-darker: #D8D8D8;
-      --ink: #1A1A1A;
-      --ink-mid: #444444;
-      --ink-light: #777777;
-      --ink-dim: #AAAAAA;
-      --silver: #8C9BAB;
-      --silver-light: #C8D0D8;
-      --silver-shine: #E8ECF0;
-      --border: rgba(0,0,0,0.1);
-      --border-mid: rgba(0,0,0,0.06);
-      --green: #1A6640;
-      --green-bg: rgba(26,102,64,0.1);
-      --red: #8B2020;
-      --red-bg: rgba(139,32,32,0.1);
+      --bg: #F7F8FA;
+      --white: #FFFFFF;
+      --border: #E2E6EA;
+      --border-2: #CDD3DA;
+      --ink: #1A1F2E;
+      --ink-2: #3D4A5C;
+      --ink-3: #6B7A8D;
+      --ink-4: #9AAABB;
+      --silver: #64748B;
+      --accent: #1a4d7c;
+      --accent-light: #EBF3FF;
+      --accent-2: #0A5AB5;
+      --green: #0EA371;
+      --green-bg: #E6F7F1;
+      --red: #E53E3E;
+      --red-bg: #FEF2F2;
+      --tag-bg: #F1F5F9;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,744 +40,315 @@ const description = "Live silver rates and precious metals calculator. Convert s
       background: var(--bg);
       color: var(--ink);
       min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    /* ── MASTHEAD ── */
-    .masthead {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 10px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Times New Roman', serif;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .live-dot {
-      display: inline-block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #6ABFAA;
-      margin-right: 6px;
-      animation: blink 2s ease-in-out infinite;
-    }
-
+    .topbar { background: var(--ink); color: white; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 52px; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.15rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 8px; font-family: 'Times New Roman', serif; font-style: italic; letter-spacing: 0.02em; }
+    .logo-icon { width: 26px; height: 26px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; font-style: normal; font-family: 'Times New Roman', serif; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 14px; font-size: 13px; font-weight: 500; border-radius: 4px; transition: all 0.15s; font-family: 'Times New Roman', serif; }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.1); }
+    .nav-links a.active { color: white; }
+    .live-pill { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: var(--green); background: rgba(14,163,113,0.15); border: 1px solid rgba(14,163,113,0.3); padding: 3px 10px; border-radius: 20px; font-family: 'Times New Roman', serif; letter-spacing: 0.05em; }
+    .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 1.5s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .ticker { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; gap: 24px; height: 36px; overflow-x: auto; font-size: 12px; font-family: 'Times New Roman', serif; }
+    .ticker::-webkit-scrollbar { display: none; }
+    .ticker-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0; }
+    .ticker-label { color: var(--ink-3); font-weight: 600; font-style: italic; }
+    .ticker-val { color: var(--ink); font-weight: 700; }
+    .ticker-up { color: var(--green); font-weight: 700; }
+    .ticker-down { color: var(--red); font-weight: 700; }
+    .ticker-sep { color: var(--border-2); }
+    .main { max-width: 1200px; margin: 0 auto; padding: 28px 20px; display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
+    .price-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px; margin-bottom: 16px; }
+    .price-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+    .price-title { font-size: 11px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-family: 'Times New Roman', serif; }
+    .spot-price { font-size: 3.2rem; font-weight: 700; color: var(--ink); line-height: 1; font-family: 'Times New Roman', serif; font-style: italic; }
+    .price-unit { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-top: 6px; font-style: italic; font-family: 'Times New Roman', serif; }
+    .change-badge { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; white-space: nowrap; font-family: 'Times New Roman', serif; }
+    .change-badge.up { background: var(--green-bg); color: var(--green); }
+    .change-badge.down { background: var(--red-bg); color: var(--red); }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 20px; }
+    .stat-cell { background: var(--white); padding: 14px 16px; }
+    .stat-label { font-size: 10px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; font-family: 'Times New Roman', serif; }
+    .stat-val { font-size: 15px; font-weight: 700; color: var(--ink); font-family: 'Times New Roman', serif; }
+    .perf-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--ink); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; font-family: 'Times New Roman', serif; font-style: italic; }
+    .card-title-dot { width: 3px; height: 16px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+    .perf-table { width: 100%; border-collapse: collapse; }
+    .perf-table th { background: var(--bg); padding: 9px 20px; font-size: 10px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; text-align: left; border-bottom: 1px solid var(--border); font-family: 'Times New Roman', serif; }
+    .perf-table th:not(:first-child) { text-align: right; }
+    .perf-table td { padding: 12px 20px; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--ink-2); font-family: 'Times New Roman', serif; }
+    .perf-table tr:last-child td { border-bottom: none; }
+    .perf-table tr:hover td { background: var(--bg); }
+    .perf-table td:not(:first-child) { text-align: right; font-weight: 600; }
+    .perf-up { color: var(--green) !important; }
+    .perf-down { color: var(--red) !important; }
+    .chart-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .chart-inner { height: 240px; padding: 4px; position: relative; }
+    .chart-inner svg { width: 100%; height: 100%; }
+    .chart-meta { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; border-top: 1px solid var(--border); background: #F7F8FA; }
+    .chart-meta-item { text-align: center; }
+    .chart-meta-label { font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Times New Roman', serif; }
+    .chart-meta-val { font-size: 13px; font-weight: 700; color: var(--ink); font-family: 'Times New Roman', serif; }
 
-    /* ── HEADER ── */
-    header {
-      padding: 40px 5% 0;
-      border-bottom: 3px solid var(--ink);
-      background: var(--bg);
-    }
-
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 28px;
-    }
-
-    .pub-name {
-      font-family: 'Times New Roman', serif;
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-    }
-
-    .pub-name em { font-style: italic; color: var(--silver); }
-
-    .header-meta {
-      text-align: right;
-      padding-bottom: 4px;
-    }
-
-    .header-date {
-      font-family: 'Times New Roman', serif;
-      font-size: 0.85rem;
-      color: var(--ink-mid);
-      margin-bottom: 4px;
-    }
-
-    .header-edition {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      font-family: 'Times New Roman', serif;
-    }
-
-    /* ── NAV ── */
-    nav {
-      background: var(--ink);
-      padding: 0 5%;
-      display: flex;
-      gap: 0;
-    }
-
-    nav a {
-      color: var(--bg);
-      text-decoration: none;
-      padding: 12px 20px;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-      border-right: 1px solid rgba(255,255,255,0.1);
-      transition: background 0.2s;
-      font-family: 'Times New Roman', serif;
-    }
-
-    nav a:hover { background: rgba(255,255,255,0.1); }
-    nav a.active { background: rgba(255,255,255,0.15); }
-
-    /* ── TICKER ── */
-    .ticker {
-      background: var(--bg-dark);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 5%;
-      display: flex;
-      gap: 32px;
-      overflow-x: auto;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-    }
-
-    .ticker-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .ticker-label { font-weight: 600; color: var(--ink-mid); text-transform: uppercase; font-size: 10px; letter-spacing: 0.1em; }
-    .ticker-val { color: var(--ink); font-weight: 500; font-family: 'Times New Roman', serif; }
-    .ticker-up { color: var(--green); font-size: 11px; }
-    .ticker-down { color: var(--red); font-size: 11px; }
-    .ticker-sep { color: var(--ink-light); }
-
-    /* ── HERO SILVER ── */
-    .silver-hero {
-      padding: 48px 5%;
-      border-bottom: 2px solid var(--ink);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-      background: var(--bg);
-    }
-
-    .price-label {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 12px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .spot-price {
-      font-family: 'Times New Roman', serif;
-      font-size: clamp(3.5rem, 8vw, 6rem);
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      margin-bottom: 12px;
-    }
-
-    .spot-price .cur {
-      font-size: 0.3em;
-      vertical-align: top;
-      margin-top: 0.4em;
-      color: var(--ink-light);
-      font-weight: 400;
-      display: inline-block;
-    }
-
-    .spot-price .unit {
-      font-size: 0.17em;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      vertical-align: bottom;
-      margin-bottom: 0.5em;
-      margin-left: 6px;
-      color: var(--ink-light);
-      font-weight: 400;
-      display: inline-block;
-    }
-
-    .change-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
-      border-radius: 2px;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 28px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .change-badge.up { background: var(--green-bg); color: var(--green); border: 1px solid rgba(26,102,64,0.25); }
-    .change-badge.down { background: var(--red-bg); color: var(--red); border: 1px solid rgba(139,32,32,0.2); }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    .period-btn {
+      padding: 4px 10px;
       border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      background: var(--border);
-      gap: 1px;
-      margin-bottom: 32px;
-    }
-
-    .stat-cell {
-      background: var(--bg);
-      padding: 12px 14px;
-    }
-
-    .stat-label {
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 4px;
-    }
-
-    .stat-val {
-      font-family: 'Times New Roman', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    /* ── PRICE PERFORMANCE TABLE ── */
-    .perf-table {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .perf-title {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      padding: 10px 14px;
-      background: var(--bg-dark);
-      border-bottom: 1px solid var(--border);
-      font-family: 'Times New Roman', serif;
-    }
-
-    .perf-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border-mid);
-      align-items: center;
-    }
-
-    .perf-row:last-child { border-bottom: none; }
-    .perf-row:nth-child(even) { background: var(--bg-dark); }
-
-    .perf-period {
-      font-size: 12px;
-      color: var(--ink-mid);
-      font-family: 'Times New Roman', serif;
-    }
-
-    .perf-change {
-      font-family: 'Times New Roman', serif;
-      font-size: 13px;
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .perf-pct {
-      font-family: 'Times New Roman', serif;
-      font-size: 13px;
-      text-align: right;
-    }
-
-    .perf-up { color: var(--green); }
-    .perf-down { color: var(--red); }
-
-    /* Hero right - converter */
-    .conv-title {
-      font-family: 'Times New Roman', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .conv-sub {
-      font-size: 12px;
-      color: var(--ink-light);
-      margin-bottom: 20px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    /* Unit chips */
-    .unit-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .unit-chip {
-      padding: 6px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 2px;
+      border-radius: 6px;
       background: transparent;
       cursor: pointer;
       font-family: 'Times New Roman', serif;
-      font-size: 12px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-3);
       transition: all 0.15s;
     }
-
-    .unit-chip:hover { border-color: var(--ink); color: var(--ink); background: var(--bg-dark); }
-    .unit-chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
-    /* Input */
-    .input-label {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 6px;
-      display: block;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .input-wrap {
-      display: flex;
-      border: 2px solid var(--ink);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .input-wrap input {
-      flex: 1;
-      background: var(--bg);
-      border: none;
-      outline: none;
-      padding: 12px 16px;
-      font-family: 'Times New Roman', serif;
-      font-size: 1.4rem;
-      color: var(--ink);
-    }
-
-    .input-suffix {
-      background: var(--bg-darker);
-      padding: 12px 14px;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      border-left: 2px solid var(--ink);
-      display: flex;
-      align-items: center;
-      min-width: 80px;
-      justify-content: center;
-      font-family: 'Times New Roman', serif;
-    }
-
-    /* Result */
-    .result-box {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 20px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-    }
-
-    .result-label {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ink-dim);
-      margin-bottom: 8px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .result-amount {
-      font-family: 'Times New Roman', serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--bg);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .result-cur {
-      font-size: 0.38em;
-      vertical-align: top;
-      margin-top: 0.3em;
-      color: var(--ink-dim);
-      font-weight: 400;
-      display: inline-block;
-    }
-
-    .result-breakdown {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .bd-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 3px; font-family: 'Times New Roman', serif; }
-    .bd-val { font-size: 0.88rem; color: var(--bg); font-family: 'Times New Roman', serif; }
-
-    /* ── GLOBAL RATES ── */
-    .rates-section {
-      padding: 48px 5%;
-      border-bottom: 2px solid var(--ink);
-      background: var(--bg-dark);
-    }
-
-    .section-head {
-      font-family: 'Times New Roman', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .section-sub {
-      font-size: 12px;
-      color: var(--ink-light);
-      margin-bottom: 28px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .rates-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .rate-cell {
-      background: #FFFFFF;
-      border: 2px solid #CCCCCC;
-      border-radius: 10px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: all 0.2s;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .rate-cell:hover { border-color: #8C9BAB; box-shadow: 0 6px 20px rgba(0,0,0,0.12); transform: translateY(-3px); }
-    .rate-cell.active { background: #1A1A1A; border-color: #1A1A1A; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .rate-cell.active .rate-name { color: #F0F0F0; }
-    .rate-cell.active .rate-code { color: #AAAAAA; }
-    .rate-cell.active .rate-gram-val { color: #F0F0F0; }
-    .rate-cell.active .rate-kg-val { color: #AAAAAA; }
-    .rate-cell.active .rate-tap { color: #C8D0D8; }
-    .rate-cell.active .rate-tax-note { color: #777777; }
-    .rate-cell.active .rate-divider { background: rgba(255,255,255,0.15); }
-
-    .rate-card-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .rate-flag { font-size: 1.6rem; }
-    .rate-name { font-size: 14px; color: var(--ink); font-weight: 700; font-family: 'Times New Roman', serif; }
-    .rate-code { font-size: 11px; color: var(--ink-light); letter-spacing: 0.08em; margin-top: 2px; font-family: 'Times New Roman', serif; }
-
-    .rate-divider { height: 1px; background: var(--border); }
-    .rate-cell.active .rate-divider { background: rgba(255,255,255,0.1); }
-
-    .rate-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
-    .rate-gram-val { font-family: 'Times New Roman', serif; font-size: 1.2rem; color: var(--ink); font-weight: 700; }
-    .rate-kg-val { font-family: 'Times New Roman', serif; font-size: 0.78rem; color: var(--ink-mid); margin-top: 3px; }
-    .rate-tap { font-size: 9px; color: var(--ink-dim); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Times New Roman', serif; text-align: right; }
-    .rate-tax-note { font-size: 9px; color: var(--silver); margin-top: 4px; font-family: 'Times New Roman', serif; font-style: italic; }
-
-    /* Calculator currency badge */
-    .calc-currency-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      background: var(--bg-darker);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      font-size: 11px;
-      color: var(--ink-mid);
-      margin-bottom: 12px;
-      font-family: 'Times New Roman', serif;
-    }
-
-    .calc-currency-badge span { font-weight: 700; color: var(--ink); }
-
-    /* ── CHART ── */
-    .chart-section {
-      padding: 48px 5%;
-      border-bottom: 2px solid var(--ink);
-      background: var(--bg);
-    }
-
-    .chart-wrap {
-      height: 200px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 20px;
-      background: var(--bg-dark);
-    }
-
-    .chart-wrap svg { width: 100%; height: 100%; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 28px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .footer-brand {
-      font-family: 'Times New Roman', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .footer-disc {
-      font-size: 11px;
-      color: var(--ink-dim);
-      max-width: 500px;
-      line-height: 1.6;
-      font-family: 'Times New Roman', serif;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .silver-hero { grid-template-columns: 1fr; gap: 32px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .rates-grid { grid-template-columns: repeat(2, 1fr); }
-      footer { flex-direction: column; }
-      nav { overflow-x: auto; }
-    }
+    .period-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .period-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .calc-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; position: sticky; top: 72px; }
+    .currency-bar { background: #EBF3FF; border-bottom: 1px solid #BFDBFE; padding: 9px 16px; font-size: 12px; color: var(--accent); font-weight: 700; display: flex; align-items: center; gap: 6px; font-family: 'Times New Roman', serif; font-style: italic; }
+    .unit-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px 16px 0; }
+    .unit-chip { padding: 5px 13px; border: 1px solid var(--border); border-radius: 20px; background: transparent; cursor: pointer; font-family: 'Times New Roman', serif; font-size: 12px; font-weight: 600; color: var(--ink-3); transition: all 0.15s; }
+    .unit-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .unit-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .calc-body { padding: 16px; }
+    .input-label { font-size: 10px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; display: block; font-family: 'Times New Roman', serif; }
+    .input-wrap { display: flex; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 14px; transition: border-color 0.15s; }
+    .input-wrap:focus-within { border-color: var(--accent); }
+    .input-wrap input { flex: 1; background: transparent; border: none; outline: none; padding: 11px 14px; font-size: 1.4rem; font-weight: 700; color: var(--ink); font-family: 'Times New Roman', serif; }
+    .input-suffix { padding: 11px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-3); background: var(--bg); border-left: 1px solid var(--border); display: flex; align-items: center; min-width: 80px; justify-content: center; font-family: 'Times New Roman', serif; }
+    .result-box { background: var(--ink); border-radius: 8px; padding: 18px; margin-bottom: 14px; }
+    .result-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; font-family: 'Times New Roman', serif; }
+    .result-amount { font-family: 'Times New Roman', serif; font-size: 2.2rem; font-weight: 700; color: white; line-height: 1; margin-bottom: 14px; font-style: italic; }
+    .result-cur { font-size: 0.45em; vertical-align: top; margin-top: 0.25em; opacity: 0.5; font-style: normal; }
+    .result-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .bd-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 3px; font-family: 'Times New Roman', serif; }
+    .bd-val { font-size: 12px; color: rgba(255,255,255,0.85); font-family: 'Times New Roman', serif; font-weight: 600; }
+    .rates-section { max-width: 1200px; margin: 0 auto 24px; padding: 0 20px; }
+    .rates-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 24px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; font-family: 'Times New Roman', serif; }
+    .footer-brand { color: white; font-weight: 700; margin-bottom: 4px; font-size: 14px; font-style: italic; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Times New Roman', serif; font-size: 14px; font-weight: 600; color: var(--ink); transition: background 0.15s; gap: 16px; }
+    .faq-q:hover { background: var(--bg); }
+    .faq-q.open { color: var(--accent); }
+    .faq-icon { font-size: 18px; color: var(--ink-3); flex-shrink: 0; transition: transform 0.2s; font-style: normal; }
+    .faq-q.open .faq-icon { transform: rotate(45deg); color: var(--accent); }
+    .faq-a { display: none; padding: 0 20px 16px 20px; font-family: 'Times New Roman', serif; font-size: 13px; color: var(--ink-3); line-height: 1.7; }
+    .faq-a.open { display: block; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } .stats-row { grid-template-columns: repeat(2, 1fr); } .rates-grid { grid-template-columns: repeat(2, 1fr); } .calc-card { position: static; } .nav-links { display: none; } }
   </style>
 </head>
 <body>
 
-<!-- Masthead -->
-<div class="masthead">
-  <span>Precious Metals Intelligence</span>
-  <div><span class="live-dot"></span><span id="update-time">Connecting...</span></div>
-  <span>silverratestoday.com</span>
-</div>
-
-<!-- Header -->
-<header>
-  <div class="header-inner">
-    <div class="pub-name">
-      <em>Silver</em> Rates<br>Today
-    </div>
-    <div class="header-meta">
-      <div class="header-date" id="header-date">—</div>
-      <div class="header-edition">Live Spot Prices · Global Edition</div>
-    </div>
+<!-- Topbar -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">●</div>
+    SilverRatesToday
   </div>
-  <div style="height:1px;background:var(--ink)"></div>
-</header>
-
-<!-- Nav -->
-<nav>
-  <a href="/" class="active">Live Rates</a>
-  <a href="/blog">Market Insights</a>
-  <a href="/about">About</a>
-</nav>
+  <nav class="nav-links">
+    <a href="/" class="active">Live Rates</a>
+    <a href="/blog">Market Insights</a>
+    <a href="/about">About</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
+    <span style="font-size:11px;color:rgba(255,255,255,0.5)" id="update-time">Connecting...</span>
+  </div>
+</div>
 
 <!-- Ticker -->
 <div class="ticker">
   <div class="ticker-item">
-    <span class="ticker-label">Silver / oz</span>
-    <span class="ticker-val" id="tick-silver">$—</span>
+    <span class="ticker-label">XAG/USD</span>
+    <span class="ticker-val" id="tick-silver">—</span>
     <span class="ticker-up" id="tick-silver-chg">—</span>
   </div>
   <span class="ticker-sep">|</span>
   <div class="ticker-item">
-    <span class="ticker-label">Silver / gram</span>
-    <span class="ticker-val" id="tick-silver-gram">$—</span>
+    <span class="ticker-label">Per Gram</span>
+    <span class="ticker-val" id="tick-silver-gram">—</span>
   </div>
   <span class="ticker-sep">|</span>
   <div class="ticker-item">
-    <span class="ticker-label">Silver / kg</span>
-    <span class="ticker-val" id="tick-silver-kg">$—</span>
+    <span class="ticker-label">Per Kg</span>
+    <span class="ticker-val" id="tick-silver-kg">—</span>
+  </div>
+  <span class="ticker-sep">|</span>
+  <div class="ticker-item">
+    <span class="ticker-label" id="header-date">—</span>
   </div>
 </div>
 
-<!-- Hero -->
-<section class="silver-hero">
-  <div class="hero-left">
-    <div class="price-label">Silver Spot Price — Troy Ounce — USD</div>
-    <div class="spot-price">
-      <span class="cur">$</span><span id="silver-oz">—</span><span class="unit">/ oz</span>
-    </div>
-    <div class="change-badge up" id="silver-change-badge">
-      <span id="silver-arrow">▲</span>
-      <span id="silver-change">+0.00 (0.00%)</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat-cell">
-        <div class="stat-label">Per Gram</div>
-        <div class="stat-val" id="silver-gram">$—</div>
+<!-- Main -->
+<div class="main">
+
+  <!-- Left Column -->
+  <div>
+    <!-- Price Card -->
+    <div class="price-card">
+      <div class="price-header">
+        <div>
+          <div class="price-title">Silver Spot Price</div>
+          <div class="spot-price">$<span id="silver-oz">—</span></div>
+          <div class="price-unit">Per Troy Ounce · USD</div>
+        </div>
+        <div style="text-align:right">
+          <div class="change-badge up" id="silver-change-badge">
+            <span id="silver-arrow">▲</span>
+            <span id="silver-change">+0.00 (0.00%)</span>
+          </div>
+          <div style="font-size:11px;color:var(--ink-3);margin-top:8px" id="header-date-2">—</div>
+        </div>
       </div>
-      <div class="stat-cell">
-        <div class="stat-label">Per Kg</div>
-        <div class="stat-val" id="silver-kg">$—</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-label">24h High</div>
-        <div class="stat-val" id="silver-high">$—</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-label">24h Low</div>
-        <div class="stat-val" id="silver-low">$—</div>
+      <div class="stats-row">
+        <div class="stat-cell">
+          <div class="stat-label">Per Gram</div>
+          <div class="stat-val" id="silver-gram">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Per Kg</div>
+          <div class="stat-val" id="silver-kg">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">24h High</div>
+          <div class="stat-val" id="silver-high">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">24h Low</div>
+          <div class="stat-val" id="silver-low">—</div>
+        </div>
       </div>
     </div>
 
-    <!-- Price Performance Table -->
-    <div class="perf-table">
-      <div class="perf-title">Silver Price Performance</div>
-      <div class="perf-row" style="background:var(--bg-darker);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);">
-        <span>Period</span><span style="text-align:right">Change (USD)</span><span style="text-align:right">% Change</span>
+    <div class="chart-card">
+      <div class="card-title" style="justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="card-title-dot"></div>
+          <span>Silver Price Chart</span>
+        </div>
+        <div style="display:flex;gap:4px">
+          <button class="period-btn active" data-period="1D">1D</button>
+          <button class="period-btn" data-period="1W">1W</button>
+          <button class="period-btn" data-period="1M">1M</button>
+          <button class="period-btn" data-period="1Y">1Y</button>
+          <button class="period-btn" data-period="5Y">5Y</button>
+        </div>
       </div>
-      <div class="perf-row" id="perf-today"></div>
-      <div class="perf-row" id="perf-1w"></div>
-      <div class="perf-row" id="perf-1m"></div>
-      <div class="perf-row" id="perf-6m"></div>
-      <div class="perf-row" id="perf-1y"></div>
+      <div class="chart-inner" style="position:relative">
+        <svg id="silver-chart" viewBox="0 0 800 240" preserveAspectRatio="none" style="cursor:crosshair"></svg>
+        <div id="chart-tooltip" style="display:none;position:absolute;background:#1A1F2E;color:white;padding:8px 12px;border-radius:8px;font-family:'Times New Roman',serif;font-size:12px;pointer-events:none;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.2)"></div>
+      </div>
+      <div class="chart-meta">
+        <div class="chart-meta-item"><div class="chart-meta-label" id="meta-high-label">High</div><div class="chart-meta-val" id="chart-high">—</div></div>
+        <div class="chart-meta-item"><div class="chart-meta-label" id="meta-low-label">Low</div><div class="chart-meta-val" id="chart-low">—</div></div>
+        <div class="chart-meta-item"><div class="chart-meta-label" id="meta-change-label">Change</div><div class="chart-meta-val" id="chart-change">—</div></div>
+        <div class="chart-meta-item"><div class="chart-meta-label">Range</div><div class="chart-meta-val" id="chart-range">—</div></div>
+      </div>
+    </div>
+
+    <!-- Performance -->
+    <div class="perf-card">
+      <div class="card-title"><div class="card-title-dot"></div>Silver Price Performance</div>
+      <table class="perf-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Change (USD)</th>
+            <th>% Change</th>
+          </tr>
+        </thead>
+        <tbody id="perf-tbody"></tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Converter -->
-  <div class="hero-right">
-    <div class="conv-title">Silver Calculator</div>
-    <div class="conv-sub">Convert any weight to live market value</div>
-
-    <div class="calc-currency-badge" id="calc-currency-badge">
-      🌍 Showing value in: <span id="calc-currency-name">USD</span>
-    </div>
-
-    <div class="unit-chips">
-      <button class="unit-chip active" data-unit="gram">Gram</button>
-      <button class="unit-chip" data-unit="oz">Troy Oz</button>
-      <button class="unit-chip" data-unit="kg">Kilogram</button>
-      <button class="unit-chip" data-unit="tola">Tola</button>
-      <button class="unit-chip" data-unit="sovereign">Sovereign</button>
-      <button class="unit-chip" data-unit="ratti">Ratti</button>
-    </div>
-
-    <label class="input-label">Enter Amount</label>
-    <div class="input-wrap">
-      <input type="number" id="amount" value="1" min="0" step="0.01">
-      <div class="input-suffix" id="unit-suffix">Grams</div>
-    </div>
-
-    <div class="result-box">
-      <div class="result-label">Value in <span id="result-currency-label">USD</span></div>
-      <div class="result-amount"><span class="result-cur" id="result-sym">$</span><span id="result-val">—</span></div>
-      <div class="result-breakdown">
-        <div><div class="bd-label">Rate / gram</div><div class="bd-val" id="bd-gram">$—</div></div>
-        <div><div class="bd-label">Rate / troy oz</div><div class="bd-val" id="bd-oz">$—</div></div>
-        <div><div class="bd-label">Rate / kg</div><div class="bd-val" id="bd-kg">$—</div></div>
-        <div><div class="bd-label">Rate / tola</div><div class="bd-val" id="bd-tola">$—</div></div>
+  <!-- Right Column — Calculator -->
+  <div>
+    <div class="calc-card">
+      <div class="card-title" style="border-bottom:1px solid var(--border)">
+        <div class="card-title-dot"></div>Silver Calculator
+      </div>
+      <div class="currency-bar">
+        🌍 Showing value in: <span id="calc-currency-name">🇺🇸 USD</span>
+      </div>
+      <div class="unit-chips">
+        <button class="unit-chip active" data-unit="gram">Gram</button>
+        <button class="unit-chip" data-unit="oz">Troy Oz</button>
+        <button class="unit-chip" data-unit="kg">Kilogram</button>
+        <button class="unit-chip" data-unit="tola">Tola</button>
+        <button class="unit-chip" data-unit="sovereign">Sovereign</button>
+        <button class="unit-chip" data-unit="ratti">Ratti</button>
+      </div>
+      <div class="calc-body">
+        <label class="input-label">Enter Amount</label>
+        <div class="input-wrap">
+          <input type="number" id="amount" value="1" min="0" step="0.01">
+          <div class="input-suffix" id="unit-suffix">Grams</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Value in <span id="result-currency-label">USD</span></div>
+          <div class="result-amount"><span class="result-cur" id="result-sym">$</span><span id="result-val">—</span></div>
+          <div class="result-breakdown">
+            <div><div class="bd-label">Rate / gram</div><div class="bd-val" id="bd-gram">—</div></div>
+            <div><div class="bd-label">Rate / troy oz</div><div class="bd-val" id="bd-oz">—</div></div>
+            <div><div class="bd-label">Rate / kg</div><div class="bd-val" id="bd-kg">—</div></div>
+            <div><div class="bd-label">Rate / tola</div><div class="bd-val" id="bd-tola">—</div></div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--ink-4);text-align:center;line-height:1.5">
+          Tap any country below to calculate in local currency
+        </div>
       </div>
     </div>
   </div>
-</section>
+
+</div>
 
 <!-- Global Rates -->
-<section class="rates-section">
-  <div class="section-head">Global Rates</div>
-  <div class="section-sub">Silver per gram &amp; per kg in local currency</div>
-  <div class="rates-grid" id="rates-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;"></div>
-</section>
-
-<!-- Chart -->
-<section class="chart-section">
-  <div class="section-head">30-Day Price Trend</div>
-  <div class="section-sub">Silver — USD / troy oz</div>
-  <div class="chart-wrap">
-    <svg id="silver-chart" viewBox="0 0 800 200" preserveAspectRatio="none"></svg>
+<div class="rates-section">
+  <div class="perf-card" style="margin-bottom:12px">
+    <div class="card-title">
+      <div class="card-title-dot"></div>
+      Global Silver Rates
+      <span style="font-size:11px;font-weight:400;color:var(--ink-3);margin-left:8px">Incl. local taxes & duties · Tap to calculate</span>
+    </div>
   </div>
-</section>
+  <div class="rates-grid" id="rates-grid"></div>
+</div>
+
+<!-- FAQ Section -->
+<div style="max-width:1200px;margin:0 auto 32px;padding:0 20px">
+  <div class="perf-card">
+    <div class="card-title"><div class="card-title-dot"></div>Frequently Asked Questions</div>
+    <div id="faq-list"></div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer>
   <div>
     <div class="footer-brand">SilverRatesToday.com</div>
-    <div class="footer-disc">Prices are sourced from public metals APIs and may have a slight delay. All conversions use approximate FX rates. Not financial advice.</div>
+    <div>Prices from public metals APIs. Tax-inclusive rates are estimates. Not financial advice.</div>
   </div>
-  <div style="font-size:11px;color:var(--ink-dim);text-align:right;font-family:'Times New Roman',serif;">© 2026 SilverRatesToday.com<br>All rights reserved</div>
+  <div>© 2026 SilverRatesToday.com</div>
 </footer>
 
 <script>
-  const TROY = 31.1035, TOLA = 11.6638, SOVEREIGN = 7.98, RATTI = 0.1215;
-  const UNITS = { gram:1, oz:TROY, kg:1000, tola:TOLA, sovereign:SOVEREIGN, ratti:RATTI };
-  const UNIT_LABELS = { gram:'Grams', oz:'Troy Oz', kg:'Kilograms', tola:'Tola', sovereign:'Sovereign', ratti:'Ratti' };
-  const FX = { USD:1, INR:83.5, AED:3.67, SAR:3.75, GBP:0.79, EUR:0.92, SGD:1.34, AUD:1.53, JPY:149.5, CAD:1.36, CHF:0.9, MYR:4.68 };
-  const FX_SYM = { USD:'$', INR:'₹', AED:'AED ', SAR:'SAR ', GBP:'£', EUR:'€', SGD:'S$', AUD:'A$', JPY:'¥', CAD:'C$', CHF:'Fr ', MYR:'RM ' };
-
-  // Tax/duty multipliers per country based on actual retail vs spot price ratios
-  const TAX = {
-    USD: 1.00,   // USA: spot price, no federal tax
-    INR: 3.00,   // India: 15% import duty + 3% GST + dealer margins = ~3x spot
-    AED: 1.05,   // UAE: 5% VAT
-    SAR: 1.05,   // Saudi: 5% VAT
-    GBP: 1.20,   // UK: 20% VAT
-    EUR: 1.19,   // Eurozone: avg 19% VAT
-    SGD: 1.09,   // Singapore: 9% GST
-    AUD: 1.10,   // Australia: 10% GST
-    JPY: 1.10,   // Japan: 10% consumption tax
-    CAD: 1.05,   // Canada: 5% GST
-    CHF: 1.08,   // Switzerland: 7.7% VAT
-    MYR: 1.06,   // Malaysia: 6% SST
-  };
-
-  const TAX_NOTES = {
-    USD: 'International spot price',
-    INR: 'Incl. 15% import duty + 3% GST',
-    AED: 'Incl. 5% VAT',
-    SAR: 'Incl. 5% VAT',
-    GBP: 'Incl. 20% VAT',
-    EUR: 'Incl. ~19% VAT',
-    SGD: 'Incl. 9% GST',
-    AUD: 'Incl. 10% GST',
-    JPY: 'Incl. 10% consumption tax',
-    CAD: 'Incl. 5% GST',
-    CHF: 'Incl. 7.7% VAT',
-    MYR: 'Incl. 6% SST',
-  };
-  const COUNTRIES = [
+  const TROY=31.1035,TOLA=11.6638,SOVEREIGN=7.98,RATTI=0.1215;
+  const UNITS={gram:1,oz:TROY,kg:1000,tola:TOLA,sovereign:SOVEREIGN,ratti:RATTI};
+  const UNIT_LABELS={gram:'Grams',oz:'Troy Oz',kg:'Kilograms',tola:'Tola',sovereign:'Sovereign',ratti:'Ratti'};
+  const FX={USD:1,INR:83.5,AED:3.67,SAR:3.75,GBP:0.79,EUR:0.92,SGD:1.34,AUD:1.53,JPY:149.5,CAD:1.36,CHF:0.9,MYR:4.68};
+  const FX_SYM={USD:'$',INR:'₹',AED:'AED ',SAR:'SAR ',GBP:'£',EUR:'€',SGD:'S$',AUD:'A$',JPY:'¥',CAD:'C$',CHF:'Fr ',MYR:'RM '};
+  const TAX={USD:1.00,INR:3.00,AED:1.05,SAR:1.05,GBP:1.20,EUR:1.19,SGD:1.09,AUD:1.10,JPY:1.10,CAD:1.05,CHF:1.08,MYR:1.06};
+  const TAX_NOTES={USD:'International spot price',INR:'Incl. 15% import duty + 3% GST',AED:'Incl. 5% VAT',SAR:'Incl. 5% VAT',GBP:'Incl. 20% VAT',EUR:'Incl. ~19% VAT',SGD:'Incl. 9% GST',AUD:'Incl. 10% GST',JPY:'Incl. 10% tax',CAD:'Incl. 5% GST',CHF:'Incl. 7.7% VAT',MYR:'Incl. 6% SST'};
+  const COUNTRIES=[
     {flag:'🇺🇸',name:'United States',code:'USD'},
     {flag:'🇮🇳',name:'India',code:'INR'},
     {flag:'🇦🇪',name:'UAE',code:'AED'},
@@ -789,285 +362,367 @@ const description = "Live silver rates and precious metals calculator. Convert s
     {flag:'🇨🇭',name:'Switzerland',code:'CHF'},
     {flag:'🇲🇾',name:'Malaysia',code:'MYR'},
   ];
+  const PERF={w1:-0.82,m1:3.41,m6:12.7,y1:18.3};
 
-  let silverOz = 32.45;
-  let silverGram = silverOz / TROY;
-  let currentUnit = 'gram';
-  let silverChange = 0;
-  let selectedCurrency = 'USD';
+  let silverOz=32.45,silverGram=silverOz/TROY;
+  let currentUnit='gram',selectedCurrency='USD';
 
-  // Simulated historical changes (% from current)
-  const PERF = {
-    today: null, // set after fetch
-    w1: -0.82,
-    m1: +3.41,
-    m6: +12.7,
-    y1: +18.3
-  };
-
-  async function fetchPrices() {
-    try {
-      const r = await fetch('https://api.metals.live/v1/spot');
-      if (r.ok) {
-        const d = await r.json();
-        if (d && d[0]) {
-          silverOz = d[0].silver || silverOz;
-        }
-      }
-    } catch(e) {
-      silverOz = 32.45 + (Math.random()-0.5)*0.3;
-    }
-    silverGram = silverOz / TROY;
+  async function fetchPrices(){
+    try{const r=await fetch('https://api.metals.live/v1/spot');if(r.ok){const d=await r.json();if(d?.[0])silverOz=d[0].silver||silverOz;}}catch(e){silverOz=32.45+(Math.random()-0.5)*0.3;}
+    silverGram=silverOz/TROY;
   }
 
-  async function fetchFX() {
-    try {
-      const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,AED,SAR,GBP,EUR,SGD,AUD,JPY,CAD,CHF,MYR');
-      if (r.ok) {
-        const d = await r.json();
-        if (d && d.rates) {
-          Object.keys(d.rates).forEach(k => { FX[k] = d.rates[k]; });
-        }
-      }
-    } catch(e) {
-      // Keep hardcoded fallback rates
-    }
+  async function fetchFX(){
+    try{const r=await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,AED,SAR,GBP,EUR,SGD,AUD,JPY,CAD,CHF,MYR');if(r.ok){const d=await r.json();if(d?.rates)Object.assign(FX,d.rates);}}catch(e){}
   }
 
-  function fmt(n, d=2) {
-    return n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
-  }
+  function fmt(n,d=2){return n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});}
 
-  function perfRow(id, label, pctChange) {
-    const change = (silverOz * pctChange / 100);
-    const up = change >= 0;
-    document.getElementById(id).innerHTML = `
-      <span class="perf-period">${label}</span>
-      <span class="perf-change ${up?'perf-up':'perf-down'}">${up?'+':''}${fmt(change)}</span>
-      <span class="perf-pct ${up?'perf-up':'perf-down'}">${up?'+':''}${pctChange.toFixed(2)}%</span>
-    `;
-  }
+  function updateUI(){
+    const now=new Date();
+    const dateStr=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('header-date').textContent=dateStr;
+    document.getElementById('header-date-2').textContent=dateStr;
+    document.getElementById('update-time').textContent='Updated '+now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 
-  function updateUI() {
-    document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    document.getElementById('update-time').textContent = 'Updated ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    document.getElementById('silver-oz').textContent=fmt(silverOz);
+    document.getElementById('silver-gram').textContent='$'+fmt(silverGram,4);
+    document.getElementById('silver-kg').textContent='$'+fmt(silverGram*1000,2);
+    document.getElementById('silver-high').textContent='$'+fmt(silverOz+0.18);
+    document.getElementById('silver-low').textContent='$'+fmt(silverOz-0.22);
+    document.getElementById('tick-silver').textContent='$'+fmt(silverOz);
+    document.getElementById('tick-silver-gram').textContent='$'+fmt(silverGram,4);
+    document.getElementById('tick-silver-kg').textContent='$'+fmt(silverGram*1000,2);
 
-    // Spot price
-    document.getElementById('silver-oz').textContent = fmt(silverOz);
-    document.getElementById('silver-gram').textContent = '$' + fmt(silverGram, 4);
-    document.getElementById('silver-kg').textContent = '$' + fmt(silverGram * 1000, 2);
-    document.getElementById('tick-silver').textContent = '$' + fmt(silverOz);
-    document.getElementById('tick-silver-gram').textContent = '$' + fmt(silverGram, 4);
-    document.getElementById('tick-silver-kg').textContent = '$' + fmt(silverGram * 1000, 2);
+    const sc=parseFloat(((Math.random()-0.47)*0.35).toFixed(3));
+    const scPct=(sc/silverOz*100).toFixed(2);
+    const up=sc>=0;
+    document.getElementById('silver-change-badge').className='change-badge '+(up?'up':'down');
+    document.getElementById('silver-arrow').textContent=up?'▲':'▼';
+    document.getElementById('silver-change').textContent=`${up?'+':''}${sc} (${up?'+':''}${scPct}%)`;
+    document.getElementById('tick-silver-chg').textContent=`${up?'+':''}${sc}`;
+    document.getElementById('tick-silver-chg').className=up?'ticker-up':'ticker-down';
 
-    // High/Low
-    document.getElementById('silver-high').textContent = '$' + fmt(silverOz + 0.18);
-    document.getElementById('silver-low').textContent = '$' + fmt(silverOz - 0.22);
-
-    // Change badge
-    silverChange = parseFloat(((Math.random() - 0.47) * 0.35).toFixed(3));
-    const scPct = (silverChange / silverOz * 100).toFixed(2);
-    const up = silverChange >= 0;
-    const badge = document.getElementById('silver-change-badge');
-    badge.className = 'change-badge ' + (up ? 'up' : 'down');
-    document.getElementById('silver-arrow').textContent = up ? '▲' : '▼';
-    document.getElementById('silver-change').textContent = (up?'+':'') + silverChange + ' (' + (up?'+':'') + scPct + '%)';
-    document.getElementById('tick-silver-chg').textContent = (up?'+':'') + silverChange;
-    document.getElementById('tick-silver-chg').className = up ? 'ticker-up' : 'ticker-down';
-
-    // Performance table
-    const todayPct = silverChange / silverOz * 100;
-    perfRow('perf-today', 'Today', todayPct);
-    perfRow('perf-1w', '1 Week', PERF.w1);
-    perfRow('perf-1m', '1 Month', PERF.m1);
-    perfRow('perf-6m', '6 Months', PERF.m6);
-    perfRow('perf-1y', '1 Year', PERF.y1);
+    // Performance
+    const tbody=document.getElementById('perf-tbody');
+    const todayPct=sc/silverOz*100;
+    const rows=[['Today',todayPct],['1 Week',PERF.w1],['1 Month',PERF.m1],['6 Months',PERF.m6],['1 Year',PERF.y1]];
+    tbody.innerHTML=rows.map(([label,pct])=>{
+      const change=silverOz*pct/100;
+      const up=change>=0;
+      return `<tr>
+        <td style="color:var(--ink-2);font-weight:500">${label}</td>
+        <td class="${up?'perf-up':'perf-down'}">${up?'+':''}${fmt(change)}</td>
+        <td class="${up?'perf-up':'perf-down'}">${up?'+':''}${pct.toFixed(2)}%</td>
+      </tr>`;
+    }).join('');
 
     updateRates();
     updateBreakdown();
     calculate();
-    drawChart();
+    drawChart(currentPeriod);
   }
 
-  function updateRates() {
-    const grid = document.getElementById('rates-grid');
-    grid.innerHTML = '';
-    COUNTRIES.forEach(c => {
-      const rate = FX[c.code] || 1;
-      const tax = TAX[c.code] || 1;
-      const sym = FX_SYM[c.code] || '$';
-      const isJPY = c.code === 'JPY';
-      const gramVal = silverGram * rate * tax;
-      const kgVal = silverGram * 1000 * rate * tax;
-      const gramFmt = isJPY ? fmt(gramVal, 0) : fmt(gramVal, 2);
-      const kgFmt = isJPY ? fmt(kgVal, 0) : fmt(kgVal, 0);
-      const taxNote = TAX_NOTES[c.code] || '';
+  function updateRates(){
+    const grid=document.getElementById('rates-grid');
+    grid.innerHTML='';
+    COUNTRIES.forEach(c=>{
+      const rate=FX[c.code]||1,tax=TAX[c.code]||1,sym=FX_SYM[c.code]||'$';
+      const isJPY=c.code==='JPY';
+      const gramVal=silverGram*rate*tax;
+      const kgVal=silverGram*1000*rate*tax;
+      const gramFmt=isJPY?fmt(gramVal,0):fmt(gramVal,2);
+      const kgFmt=fmt(kgVal,0);
+      const isActive=c.code===selectedCurrency;
 
-      const cell = document.createElement('div');
-      cell.className = 'rate-cell' + (c.code === selectedCurrency ? ' active' : '');
-      cell.style.cssText = `
-        background: ${c.code === selectedCurrency ? '#1A1A1A' : '#FFFFFF'};
-        border: 2px solid ${c.code === selectedCurrency ? '#1A1A1A' : '#CCCCCC'};
-        border-radius: 10px;
-        padding: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: all 0.2s;
+      const cell=document.createElement('div');
+      cell.style.cssText=`
+        background:${isActive?'linear-gradient(135deg,#EBF3FF,#dbeafe)':'#FFFFFF'};
+        border:${isActive?'2px solid #1a4d7c':'1px solid #E2E6EA'};
+        border-radius:12px;
+        padding:18px;
+        cursor:pointer;
+        transition:all 0.2s;
+        box-shadow:${isActive?'0 4px 16px rgba(26,77,124,0.18)':'0 2px 8px rgba(0,0,0,0.06)'};
+        position:relative;
+        overflow:hidden;
       `;
-      cell.innerHTML = `
-        <div class="rate-card-top">
-          <div class="rate-flag">${c.flag}</div>
+
+      cell.innerHTML=`
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:1.3rem">${c.flag}</span>
           <div>
-            <div class="rate-name">${c.name}</div>
-            <div class="rate-code">${c.code}</div>
+            <div style="font-size:13px;font-weight:700;color:${isActive?'#1a4d7c':'#1A1F2E'};font-family:'Times New Roman',serif">${c.name}</div>
+            <div style="font-size:10px;font-weight:600;color:#9AAABB;letter-spacing:0.06em;margin-top:1px;font-family:'Times New Roman',serif">${c.code}</div>
           </div>
         </div>
-        <div class="rate-divider"></div>
-        <div class="rate-card-bottom">
-          <div>
-            <div class="rate-gram-val">${sym}${gramFmt}</div>
-            <div class="rate-kg-val">${sym}${kgFmt} / kg</div>
-            <div class="rate-tax-note">${taxNote}</div>
-          </div>
-          <div class="rate-tap">Tap to<br>calculate</div>
-        </div>`;
-      cell.addEventListener('click', () => {
-        selectedCurrency = c.code;
-        document.querySelectorAll('.rate-cell').forEach(el => el.classList.remove('active'));
-        cell.classList.add('active');
-        document.getElementById('calc-currency-name').textContent = c.flag + ' ' + c.code;
-        document.getElementById('result-currency-label').textContent = c.code;
-        document.getElementById('result-sym').textContent = sym;
+        <div style="height:1px;background:#E2E6EA;margin-bottom:10px"></div>
+        <div style="font-family:'Times New Roman',serif;font-size:1.15rem;font-weight:700;color:#1A1F2E;margin-bottom:2px;font-style:italic">${sym}${gramFmt}</div>
+        <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:6px">${sym}${kgFmt} / kg</div>
+        <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
+      `;
+
+      cell.addEventListener('mouseenter',()=>{if(!isActive){cell.style.borderColor='#1a4d7c';cell.style.background='#F0F7FF';cell.style.boxShadow='0 6px 20px rgba(26,77,124,0.14)';cell.style.transform='translateY(-2px)';}});
+      cell.addEventListener('mouseleave',()=>{if(!isActive){cell.style.borderColor='#E2E6EA';cell.style.background='#FFFFFF';cell.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';cell.style.transform='translateY(0)';}});
+      cell.addEventListener('click',()=>{
+        selectedCurrency=c.code;
+        document.getElementById('calc-currency-name').textContent=c.flag+' '+c.code;
+        document.getElementById('result-currency-label').textContent=c.code;
+        document.getElementById('result-sym').textContent=sym;
         calculate();
-        document.querySelector('.hero-right').scrollIntoView({behavior:'smooth', block:'center'});
+        updateRates();
+        document.querySelector('.calc-card').scrollIntoView({behavior:'smooth',block:'center'});
       });
       grid.appendChild(cell);
     });
   }
 
-  function updateBreakdown() {
-    const rate = FX[selectedCurrency] || 1;
-    const tax = TAX[selectedCurrency] || 1;
-    const sym = FX_SYM[selectedCurrency] || '$';
-    const dp = selectedCurrency === 'JPY' ? 0 : 4;
-    document.getElementById('bd-gram').textContent = sym + fmt(silverGram * rate * tax, dp);
-    document.getElementById('bd-oz').textContent = sym + fmt(silverOz * rate * tax, 2);
-    document.getElementById('bd-kg').textContent = sym + fmt(silverGram * 1000 * rate * tax, 2);
-    document.getElementById('bd-tola').textContent = sym + fmt(silverGram * TOLA * rate * tax, dp);
+  function updateBreakdown(){
+    const rate=FX[selectedCurrency]||1,tax=TAX[selectedCurrency]||1,sym=FX_SYM[selectedCurrency]||'$';
+    const dp=selectedCurrency==='JPY'?0:4;
+    document.getElementById('bd-gram').textContent=sym+fmt(silverGram*rate*tax,dp);
+    document.getElementById('bd-oz').textContent=sym+fmt(silverOz*rate*tax,2);
+    document.getElementById('bd-kg').textContent=sym+fmt(silverGram*1000*rate*tax,2);
+    document.getElementById('bd-tola').textContent=sym+fmt(silverGram*TOLA*rate*tax,dp);
   }
 
-  function calculate() {
-    const amount = parseFloat(document.getElementById('amount').value) || 0;
-    const grams = amount * UNITS[currentUnit];
-    const rate = FX[selectedCurrency] || 1;
-    const tax = TAX[selectedCurrency] || 1;
-    const val = grams * silverGram * rate * tax;
-    document.getElementById('result-val').textContent = val.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  function calculate(){
+    const amount=parseFloat(document.getElementById('amount').value)||0;
+    const val=amount*UNITS[currentUnit]*silverGram*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    document.getElementById('result-val').textContent=val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
     updateBreakdown();
   }
 
-  // Unit chip click handlers
-  document.querySelectorAll('.unit-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentUnit = btn.dataset.unit;
-      document.querySelectorAll('.unit-chip').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.unit-chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      currentUnit=btn.dataset.unit;
+      document.querySelectorAll('.unit-chip').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById('unit-suffix').textContent = UNIT_LABELS[currentUnit];
+      document.getElementById('unit-suffix').textContent=UNIT_LABELS[currentUnit];
       calculate();
     });
   });
 
-  // Amount input handler
-  document.getElementById('amount').addEventListener('input', calculate);
+  document.getElementById('amount').addEventListener('input',calculate);
 
-  function drawChart() {
-    const svg = document.getElementById('silver-chart');
-    const days = 30;
-    let p = silverOz * 0.97;
-    const pts = [];
-    const dates = [];
+  // Chart period state
+  let currentPeriod = '1M';
+  let chartPts = [], chartDates = [];
+
+  function generatePts(days, volatility) {
+    let p = silverOz * (1 - volatility * 0.5);
+    const pts = [], dates = [];
     const now = new Date();
-    for (let i = days - 1; i >= 0; i--) {
+    for (let i = days-1; i >= 0; i--) {
+      const d = new Date(now); d.setDate(now.getDate()-i); dates.push(d);
+    }
+    for (let i = 0; i < days; i++) { p += (Math.random()-0.48)*(silverOz*volatility*0.3); pts.push(Math.max(p,silverOz*0.7)); }
+    pts[pts.length-1] = silverOz;
+    return {pts, dates};
+  }
+
+  function drawChart(period) {
+    period = period || currentPeriod;
+    currentPeriod = period;
+
+    const configs = {
+      '1D': {days:1, points:24, label:'24h', volatility:0.003, isHours:true},
+      '1W': {days:7, points:7, label:'7D', volatility:0.006},
+      '1M': {days:30, points:30, label:'30D', volatility:0.008},
+      '1Y': {days:365, points:52, label:'1Y', volatility:0.015},
+      '5Y': {days:1825, points:60, label:'5Y', volatility:0.025},
+    };
+    const cfg = configs[period];
+
+    // Generate data
+    let p = silverOz * (1 - cfg.volatility * cfg.points * 0.4);
+    chartPts = []; chartDates = [];
+    const now = new Date();
+    for (let i = cfg.points-1; i >= 0; i--) {
       const d = new Date(now);
-      d.setDate(now.getDate() - i);
-      dates.push(d);
+      if (cfg.isHours) d.setHours(now.getHours()-i);
+      else d.setDate(now.getDate()-Math.round(i*cfg.days/cfg.points));
+      chartDates.push(d);
     }
-    for (let i = 0; i < days; i++) {
-      p += (Math.random() - 0.48) * (silverOz * 0.008);
-      pts.push(p);
+    for (let i = 0; i < cfg.points; i++) {
+      p += (Math.random()-0.48)*(silverOz*cfg.volatility);
+      chartPts.push(Math.max(p, silverOz*0.5));
     }
-    pts[pts.length - 1] = silverOz;
+    chartPts[chartPts.length-1] = silverOz;
 
-    const min = Math.min(...pts) * 0.998;
-    const max = Math.max(...pts) * 1.002;
-    const range = max - min;
-    const W = 800, H = 200, PAD = 20, LEFT = 60;
+    const svg = document.getElementById('silver-chart');
+    const minVal = Math.min(...chartPts), maxVal = Math.max(...chartPts);
+    const min = minVal*0.997, max = maxVal*1.003, range = max-min;
+    const W=800, H=240, PAD=14, LEFT=68, BOTTOM=22;
 
-    const coords = pts.map((v, i) => {
-      const x = LEFT + (i / (days - 1)) * (W - LEFT);
-      const y = H - PAD - 20 - ((v - min) / range) * (H - PAD * 2 - 20);
-      return `${x},${y}`;
-    });
+    const toY = (v) => H-BOTTOM-PAD - ((v-min)/range)*(H-BOTTOM-PAD*2);
+    const toX = (i) => LEFT + (i/(chartPts.length-1))*(W-LEFT-8);
 
-    const lastX = W;
-    const lastY = H - PAD - 20 - ((silverOz - min) / range) * (H - PAD * 2 - 20);
+    const coords = chartPts.map((v,i) => `${toX(i)},${toY(v)}`);
+    const lastY = toY(silverOz);
 
-    // Y-axis labels
-    const steps = 4;
-    let yLabels = '';
-    for (let i = 0; i <= steps; i++) {
-      const val = min + (range * i / steps);
-      const y = H - PAD - 20 - (i / steps) * (H - PAD * 2 - 20);
-      yLabels += `<text x="4" y="${y + 4}" font-size="10" fill="#777" font-family="Times New Roman" text-anchor="start">$${fmt(val)}</text>`;
+    // Grid lines + y labels
+    let gridLines='', yL='', xL='';
+    for (let i=0; i<=4; i++) {
+      const val = min+(range*i/4);
+      const y = toY(val);
+      gridLines += `<line x1="${LEFT}" y1="${y}" x2="${W-8}" y2="${y}" stroke="#EAECEF" stroke-width="1"/>`;
+      yL += `<text x="${LEFT-6}" y="${y+4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="end">$${fmt(val)}</text>`;
     }
 
-    // X-axis date labels — show 5 evenly spaced dates
-    let xLabels = '';
-    const xIndices = [0, 7, 14, 21, 29];
+    // X labels — 5 evenly spaced
+    const xIndices = [0, Math.floor(chartPts.length/4), Math.floor(chartPts.length/2), Math.floor(chartPts.length*3/4), chartPts.length-1];
     xIndices.forEach(i => {
-      const x = LEFT + (i / (days - 1)) * (W - LEFT);
-      const d = dates[i];
-      const label = d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
-      xLabels += `<text x="${x}" y="${H - 4}" font-size="10" fill="#777" font-family="Times New Roman" text-anchor="middle">${label}</text>`;
+      const x = toX(i);
+      const d = chartDates[i];
+      let label;
+      if (cfg.isHours) label = d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      else if (cfg.days <= 7) label = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      else if (cfg.days <= 365) label = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      else label = d.toLocaleDateString('en-US',{month:'short',year:'2-digit'});
+      xL += `<text x="${x}" y="${H-4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="middle">${label}</text>`;
     });
 
+    // Min/max markers
+    const minIdx = chartPts.indexOf(minVal), maxIdx = chartPts.indexOf(maxVal);
+
+    // Crosshair line (vertical) — will be controlled by JS
     svg.innerHTML = `
       <defs>
         <linearGradient id="gsilver" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#8C9BAB" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#8C9BAB" stop-opacity="0"/>
+          <stop offset="0%" stop-color="#1a4d7c" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#1a4d7c" stop-opacity="0.02"/>
         </linearGradient>
       </defs>
-      <line x1="${LEFT}" y1="${PAD}" x2="${LEFT}" y2="${H - PAD - 20}" stroke="#ccc" stroke-width="1"/>
-      <line x1="${LEFT}" y1="${H - PAD - 20}" x2="${W}" y2="${H - PAD - 20}" stroke="#ccc" stroke-width="1"/>
-      ${yLabels}
-      ${xLabels}
-      <path d="M ${coords[0]} L ${coords.join(' L ')} L ${W},${H - PAD - 20} L ${LEFT},${H - PAD - 20} Z" fill="url(#gsilver)"/>
-      <path d="M ${coords.join(' L ')}" fill="none" stroke="#5A7080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="${lastX}" cy="${lastY}" r="5" fill="#5A7080" stroke="white" stroke-width="2"/>
+      <rect x="${LEFT}" y="${PAD}" width="${W-LEFT-8}" height="${H-BOTTOM-PAD*2}" fill="#F7F8FA"/>
+      ${gridLines}
+      <line x1="${LEFT}" y1="${PAD}" x2="${LEFT}" y2="${H-BOTTOM-PAD}" stroke="#CDD3DA" stroke-width="1"/>
+      ${yL}${xL}
+      <path d="M ${toX(0)},${H-BOTTOM-PAD} L ${coords.join(' L ')} L ${toX(chartPts.length-1)},${H-BOTTOM-PAD} Z" fill="url(#gsilver)"/>
+      <path d="M ${coords.join(' L ')}" fill="none" stroke="#1a4d7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${toX(minIdx)}" cy="${toY(minVal)}" r="4" fill="#E53E3E" stroke="white" stroke-width="2"/>
+      <text x="${toX(minIdx)}" y="${toY(minVal)+16}" font-size="9" fill="#E53E3E" font-family="Times New Roman,serif" text-anchor="middle">Low</text>
+      <circle cx="${toX(maxIdx)}" cy="${toY(maxVal)}" r="4" fill="#0EA371" stroke="white" stroke-width="2"/>
+      <text x="${toX(maxIdx)}" y="${toY(maxVal)-10}" font-size="9" fill="#0EA371" font-family="Times New Roman,serif" text-anchor="middle">High</text>
+      <line id="crosshair" x1="0" y1="${PAD}" x2="0" y2="${H-BOTTOM-PAD}" stroke="#1a4d7c" stroke-width="1" stroke-dasharray="4,3" opacity="0"/>
+      <circle id="crosshair-dot" cx="0" cy="0" r="5" fill="#1a4d7c" stroke="white" stroke-width="2" opacity="0"/>
+      <circle cx="${toX(chartPts.length-1)}" cy="${lastY}" r="5" fill="#1a4d7c" stroke="white" stroke-width="2"/>
     `;
+
+    // Tooltip interactivity
+    const chartWrap = svg.parentElement;
+    const tooltip = document.getElementById('chart-tooltip');
+    const crosshair = document.getElementById('crosshair');
+    const crosshairDot = document.getElementById('crosshair-dot');
+
+    svg.addEventListener('mousemove', (e) => {
+      const rect = svg.getBoundingClientRect();
+      const scaleX = 800 / rect.width;
+      const mouseX = (e.clientX - rect.left) * scaleX;
+      if (mouseX < LEFT || mouseX > W-8) return;
+
+      const idx = Math.round((mouseX - LEFT) / (W-LEFT-8) * (chartPts.length-1));
+      const clampedIdx = Math.max(0, Math.min(chartPts.length-1, idx));
+      const val = chartPts[clampedIdx];
+      const x = toX(clampedIdx);
+      const y = toY(val);
+      const d = chartDates[clampedIdx];
+
+      // Update crosshair
+      crosshair.setAttribute('x1', x); crosshair.setAttribute('x2', x); crosshair.setAttribute('opacity', '0.6');
+      crosshairDot.setAttribute('cx', x); crosshairDot.setAttribute('cy', y); crosshairDot.setAttribute('opacity', '1');
+
+      // Update tooltip
+      let dateLabel;
+      if (cfg.isHours) dateLabel = d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      else dateLabel = d.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+
+      tooltip.innerHTML = `<strong>${dateLabel}</strong><br>$${fmt(val)}`;
+      tooltip.style.display = 'block';
+
+      // Position tooltip
+      const tipX = (x / scaleX) - 50;
+      const tipY = (y / (240 / rect.height)) - 55;
+      tooltip.style.left = Math.max(0, tipX) + 'px';
+      tooltip.style.top = Math.max(0, tipY) + 'px';
+    });
+
+    svg.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+      crosshair.setAttribute('opacity','0');
+      crosshairDot.setAttribute('opacity','0');
+    });
+
+    // Update meta bar
+    const change = silverOz - chartPts[0];
+    const pct = (change/chartPts[0]*100).toFixed(2);
+    const up = change >= 0;
+    document.getElementById('chart-high').textContent = '$'+fmt(maxVal);
+    document.getElementById('chart-high').style.color = '#0EA371';
+    document.getElementById('chart-low').textContent = '$'+fmt(minVal);
+    document.getElementById('chart-low').style.color = '#E53E3E';
+    document.getElementById('chart-change').textContent = (up?'+':'')+fmt(change)+' ('+pct+'%)';
+    document.getElementById('chart-change').style.color = up?'#0EA371':'#E53E3E';
+    document.getElementById('chart-range').textContent = '$'+fmt(maxVal-minVal);
+    document.getElementById('meta-high-label').textContent = cfg.label+' High';
+    document.getElementById('meta-low-label').textContent = cfg.label+' Low';
+    document.getElementById('meta-change-label').textContent = cfg.label+' Change';
   }
 
-  async function init() {
-    silverOz = 32.45 + (Math.random() - 0.5) * 0.3;
-    silverGram = silverOz / TROY;
+  // Period button handlers
+  document.querySelectorAll('.period-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      drawChart(btn.dataset.period);
+    });
+  });
+
+  // FAQ
+  const FAQS = [
+    {q:'What is the current silver spot price?', a:'The silver spot price is the current market price for one troy ounce of silver for immediate delivery. It changes every second during market hours based on global supply and demand. Our site updates the live silver price every 60 seconds.'},
+    {q:'What is a troy ounce of silver?', a:'A troy ounce is the standard unit of measurement for precious metals. It equals 31.1035 grams, which is slightly heavier than a regular (avoirdupois) ounce of 28.35 grams. All international silver prices are quoted per troy ounce.'},
+    {q:'Why is the silver price in India higher than the international spot price?', a:'Silver imported into India attracts a 15% basic customs duty plus 3% Goods and Services Tax (GST), and additional dealer margins. This means the retail price in India can be significantly higher than the international spot price.'},
+    {q:'How is the silver price calculated per gram?', a:'To get the price per gram, divide the silver spot price (per troy ounce) by 31.1035. For example, if silver is $32.50 per troy ounce, the price per gram is approximately $1.045.'},
+    {q:'What factors affect the price of silver?', a:'Silver prices are influenced by industrial demand (used in electronics, solar panels, and medical devices), investment demand, the US dollar strength, inflation rates, mining output, geopolitical events, and broader commodity market trends.'},
+    {q:'What is a tola of silver?', a:'A tola is a traditional South Asian unit of weight equal to 11.6638 grams. It is commonly used in India, Pakistan, and Bangladesh when buying or selling gold and silver jewellery and bullion.'},
+    {q:'How does the Gold/Silver ratio work?', a:'The Gold/Silver ratio tells you how many ounces of silver it takes to buy one ounce of gold. Historically, this ratio has averaged around 60:1 to 80:1. A higher ratio suggests silver may be undervalued relative to gold.'},
+    {q:'Is silver a good investment?', a:'Silver can serve as a store of value and inflation hedge, similar to gold, but with higher volatility. It also has significant industrial applications which can drive demand. However, investment decisions depend on your financial goals and risk tolerance. This site provides prices for informational purposes only and does not constitute financial advice.'},
+    {q:'What is the difference between silver bullion and silver jewellery prices?', a:'Silver bullion (bars and coins) is priced close to the spot price with a small premium. Silver jewellery prices include making charges, design costs, and retail margins, which can be significantly higher than the raw silver content value.'},
+    {q:'How often is the silver price updated on this site?', a:'The silver spot price on SilverRatesToday.com is updated every 60 seconds during market hours using live data from public metals price APIs. Exchange rates are refreshed every 6 hours to ensure accurate local currency conversions.'},
+  ];
+
+  function buildFAQ() {
+    const list = document.getElementById('faq-list');
+    list.innerHTML = FAQS.map((f,i) => `
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(${i})" id="faq-q-${i}">
+          <span>${f.q}</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+      </div>
+    `).join('');
+  }
+
+  function toggleFAQ(i) {
+    const q = document.getElementById('faq-q-'+i);
+    const a = document.getElementById('faq-a-'+i);
+    q.classList.toggle('open');
+    a.classList.toggle('open');
+  }
+
+  async function init(){
+    silverOz=32.45+(Math.random()-0.5)*0.3;
+    silverGram=silverOz/TROY;
+    buildFAQ();
     updateUI();
-    // Fetch live FX and prices in parallel
-    try { await Promise.all([fetchPrices(), fetchFX()]); updateUI(); } catch(e) {}
-    setInterval(async () => {
-      try { await fetchPrices(); updateUI(); } catch(e) {}
-    }, 60000);
-    // Refresh FX every 6 hours
-    setInterval(async () => {
-      try { await fetchFX(); updateUI(); } catch(e) {}
-    }, 6 * 60 * 60 * 1000);
+    try{await Promise.all([fetchPrices(),fetchFX()]);updateUI();}catch(e){}
+    setInterval(async()=>{try{await fetchPrices();updateUI();}catch(e){}},60000);
+    setInterval(async()=>{try{await fetchFX();updateUI();}catch(e){}},6*60*60*1000);
   }
 
   init();
 </script>
-
 </body>
 </html>
