@@ -2,7 +2,6 @@
 title: 'Silver Price in UK Today: GBP per Gram, Troy Oz & Kg (2026)'
 description: 'Live silver price in UK today in British pounds per gram, troy ounce, and kilogram. Includes VAT information, where to buy silver in the UK, and investment options.'
 pubDate: 'May 08 2026'
-heroImage: '/blog-placeholder-3.jpg'
 ---
 
 The United Kingdom has a long history with silver, from Sterling silver coinage to the London Silver Fix that set global silver prices for decades. Today, silver remains a popular investment and jewellery metal in the UK, though buyers need to be aware of the 20% VAT that applies to most silver purchases.

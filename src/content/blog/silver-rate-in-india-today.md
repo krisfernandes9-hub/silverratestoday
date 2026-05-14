@@ -2,7 +2,6 @@
 title: 'Silver Rate in India Today: Price per Gram, Tola & Kg (2026)'
 description: 'Check today live silver rate in India in rupees per gram, tola, and kilogram. Understand how Indian silver prices are calculated including import duty and GST.'
 pubDate: 'May 08 2026'
-heroImage: '/blog-placeholder-1.jpg'
 ---
 
 Silver is one of India's most beloved precious metals, used in jewellery, religious ceremonies, investment, and industrial applications. Whether you are buying silver jewellery for a wedding, investing in silver coins, or tracking the commodity market, understanding the silver rate in India is essential.

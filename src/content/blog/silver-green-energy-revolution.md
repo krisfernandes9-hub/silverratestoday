@@ -2,7 +2,6 @@
 title: 'Why Silver is Essential for the Green Energy Revolution'
 description: 'Silver plays a critical role in solar panels, EVs, and clean energy technology. Learn why industrial demand could drive silver prices higher in the coming decade.'
 pubDate: 'May 08 2026'
-heroImage: '/blog-placeholder-2.jpg'
 ---
 
 Silver is not just a precious metal for jewellery and investment. It is a critical industrial material that sits at the heart of the global clean energy transition. From solar panels to electric vehicles, silver's unique physical properties make it irreplaceable in many green technologies — and this industrial demand is becoming an increasingly powerful driver of silver prices.

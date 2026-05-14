@@ -2,7 +2,6 @@
 title: 'How to Calculate the Value of Your Silver: A Complete Guide'
 description: 'Learn how to calculate the value of your silver jewellery, coins, or bars using live spot prices. Includes formulas for grams, troy ounces, tola, and kg.'
 pubDate: 'May 08 2026'
-heroImage: '/blog-placeholder-1.jpg'
 ---
 
 Whether you have inherited silver jewellery, are selling old silverware, or want to know the value of your silver coins and bars, knowing how to calculate silver's market value is an essential skill. This guide walks you through everything you need to know.

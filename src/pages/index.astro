@@ -154,8 +154,8 @@ const description = "Live silver rates and precious metals calculator. Convert s
   </div>
   <nav class="nav-links">
     <a href="/" class="active">Live Rates</a>
-    <a href="/blog">Market Insights</a>
-    <a href="/about">About</a>
+    <a href="#insights">Market Insights</a>
+<a href="#about">About</a>
   </nav>
   <div style="display:flex;align-items:center;gap:12px;">
     <div class="live-pill"><div class="live-dot"></div>LIVE</div>
@@ -287,7 +287,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
         <button class="unit-chip" data-unit="ratti">Ratti</button>
       </div>
       <div class="calc-body">
-        <label class="input-label">Enter Amount</label>
+        <label class="input-label">Enter Quantity</label>
         <div class="input-wrap">
           <input type="number" id="amount" value="1" min="0" step="0.01">
           <div class="input-suffix" id="unit-suffix">Grams</div>
@@ -323,7 +323,164 @@ const description = "Live silver rates and precious metals calculator. Convert s
   <div class="rates-grid" id="rates-grid"></div>
 </div>
 
-<!-- FAQ Section -->
+<!-- Market Insights Carousel -->
+<div id="insights" style="max-width:1200px;margin:0 auto 32px;padding:0 20px">
+  <div class="perf-card" style="margin-bottom:16px">
+    <div class="card-title" style="justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="card-title-dot"></div>
+        <span>Market Insights</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="scrollCarousel(-1)" style="width:32px;height:32px;border-radius:50%;border:1px solid #E2E6EA;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#1A1F2E;transition:all 0.15s" onmouseover="this.style.background='#1a4d7c';this.style.color='white';this.style.borderColor='#1a4d7c'" onmouseout="this.style.background='#fff';this.style.color='#1A1F2E';this.style.borderColor='#E2E6EA'">&#8592;</button>
+        <button onclick="scrollCarousel(1)" style="width:32px;height:32px;border-radius:50%;border:1px solid #E2E6EA;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#1A1F2E;transition:all 0.15s" onmouseover="this.style.background='#1a4d7c';this.style.color='white';this.style.borderColor='#1a4d7c'" onmouseout="this.style.background='#fff';this.style.color='#1A1F2E';this.style.borderColor='#E2E6EA'">&#8594;</button>
+      </div>
+    </div>
+  </div>
+  <div style="position:relative;overflow:hidden">
+    <div id="blog-carousel" style="display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px">
+      <style>#blog-carousel::-webkit-scrollbar{display:none}</style>
+
+      <!-- Card 1 -->
+      <a href="/blog/gold-vs-silver-investment-2026" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">📈</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Gold vs Silver: Which is a Better Investment in 2026?</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="/blog/how-to-calculate-silver-value" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#0d0d0d 0%,#1a1a1a 50%,#2d2d2d 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">⚖️</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">How to Calculate the Value of Your Silver: A Complete Guide</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="/blog/silver-green-energy-revolution" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#0f0f0f 0%,#1c2b1c 50%,#0d1f0d 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🌿</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Why Silver is Essential for the Green Energy Revolution</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="/blog/silver-price-history-forecast-2026" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#1a0a00 0%,#2d1500 50%,#1a0a00 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">📊</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Silver Price History & Forecast: Will Silver Go Up in 2026?</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="/blog/silver-price-uk-today" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#0a0a1a 0%,#0d0d2e 50%,#0a0a1a 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🇬🇧</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Silver Price in UK Today: GBP per Gram, Troy Oz & Kg (2026)</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="/blog/silver-rate-in-india-today" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#0d1a0d 0%,#0a2a0a 50%,#051405 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🇮🇳</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Silver Rate in India Today: Price per Gram, Tola & Kg (2026)</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 7 -->
+      <a href="/blog/silver-rate-uae-today" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#1a1a0a 0%,#2a2a05 50%,#1a1a0a 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🇦🇪</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">Silver Rate in UAE Today: Price in AED per Gram & Kg (2026)</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 8 -->
+      <a href="/blog/what-is-troy-ounce-silver-weight-units" style="text-decoration:none;flex:0 0 280px">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.13)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+          <div style="height:140px;background:linear-gradient(135deg,#1a0505 0%,#2d0a0a 50%,#1a0505 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🧮</div>
+          <div style="padding:16px">
+            <div style="font-family:'Times New Roman',serif;font-size:0.95rem;font-weight:700;color:#111;line-height:1.35;margin-bottom:8px">What is a Troy Ounce? Silver Weight Units Explained</div>
+            <div style="font-size:11px;color:#888;font-family:Arial,sans-serif;margin-bottom:10px">May 8, 2026</div>
+            <div style="font-size:11px;color:#1a4d7c;font-family:Arial,sans-serif;border-bottom:1px solid #1a4d7c;display:inline-block;padding-bottom:1px">Read article →</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <a href="/blog" style="font-family:'Times New Roman',serif;font-size:13px;color:#1a4d7c;text-decoration:none;border:1px solid #1a4d7c;padding:8px 24px;border-radius:6px;transition:all 0.15s" onmouseover="this.style.background='#1a4d7c';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#1a4d7c'">View All Articles →</a>
+  </div>
+</div>
+
+<!-- About Section -->
+<div id="about" style="max-width:1200px;margin:0 auto 32px;padding:0 20px">
+  <div class="perf-card">
+    <div class="card-title"><div class="card-title-dot"></div>About SilverRatesToday</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 20px">
+      <div>
+        <div style="font-family:'Times New Roman',serif;font-size:1.1rem;font-weight:700;color:#1A1F2E;margin-bottom:12px;font-style:italic">What We Do</div>
+        <p style="font-family:'Times New Roman',serif;font-size:13px;color:#3D4A5C;line-height:1.8;margin-bottom:16px">SilverRatesToday.com provides live silver spot prices, real-time currency conversions, and market analysis for investors, jewellers, and traders across 12 countries. Our data is sourced from global metals markets and updated every 60 seconds.</p>
+        <p style="font-family:'Times New Roman',serif;font-size:13px;color:#3D4A5C;line-height:1.8">Whether you're tracking silver in Indian Rupees, UAE Dirhams, or British Pounds, our calculator gives you accurate, tax-inclusive rates so you always know the true cost of silver in your local market.</p>
+      </div>
+      <div>
+        <div style="font-family:'Times New Roman',serif;font-size:1.1rem;font-weight:700;color:#1A1F2E;margin-bottom:12px;font-style:italic">Why Trust Us</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#EBF3FF;color:#1a4d7c;font-size:16px;padding:8px;border-radius:8px;flex-shrink:0">⚡</div>
+            <div><div style="font-family:'Times New Roman',serif;font-size:13px;font-weight:700;color:#1A1F2E">Live Data</div><div style="font-family:'Times New Roman',serif;font-size:12px;color:#6B7A8D;margin-top:2px">Prices updated every 60 seconds from global metals exchanges</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#EBF3FF;color:#1a4d7c;font-size:16px;padding:8px;border-radius:8px;flex-shrink:0">🌍</div>
+            <div><div style="font-family:'Times New Roman',serif;font-size:13px;font-weight:700;color:#1A1F2E">12 Currencies</div><div style="font-family:'Times New Roman',serif;font-size:12px;color:#6B7A8D;margin-top:2px">Tax-inclusive rates for USD, INR, AED, GBP, EUR and more</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#EBF3FF;color:#1a4d7c;font-size:16px;padding:8px;border-radius:8px;flex-shrink:0">📊</div>
+            <div><div style="font-family:'Times New Roman',serif;font-size:13px;font-weight:700;color:#1A1F2E">Real Charts</div><div style="font-family:'Times New Roman',serif;font-size:12px;color:#6B7A8D;margin-top:2px">Historical price data from 1D to 5Y in your local currency</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#EBF3FF;color:#1a4d7c;font-size:16px;padding:8px;border-radius:8px;flex-shrink:0">🔒</div>
+            <div><div style="font-family:'Times New Roman',serif;font-size:13px;font-weight:700;color:#1A1F2E">No Ads, No Noise</div><div style="font-family:'Times New Roman',serif;font-size:12px;color:#6B7A8D;margin-top:2px">Clean, fast, distraction-free — built for people who need real data</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#F7F8FA;border-top:1px solid #E2E6EA;padding:16px 20px;font-family:'Times New Roman',serif;font-size:12px;color:#6B7A8D;font-style:italic">
+      Disclaimer: Prices shown are for informational purposes only. Tax-inclusive rates are estimates based on standard duty structures and may vary. This is not financial advice.
+    </div>
+  </div>
+</div><!-- FAQ Section -->
 <div style="max-width:1200px;margin:0 auto 32px;padding:0 20px">
   <div class="perf-card">
     <div class="card-title"><div class="card-title-dot"></div>Frequently Asked Questions</div>
@@ -341,12 +498,12 @@ const description = "Live silver rates and precious metals calculator. Convert s
 </footer>
 
 <script is:inline>
+  const API = 'https://silver-api.krisfernandes-9.workers.dev';
   const TROY=31.1035,TOLA=11.6638,SOVEREIGN=7.98,RATTI=0.1215;
   const UNITS={gram:1,oz:TROY,kg:1000,tola:TOLA,sovereign:SOVEREIGN,ratti:RATTI};
   const UNIT_LABELS={gram:'Grams',oz:'Troy Oz',kg:'Kilograms',tola:'Tola',sovereign:'Sovereign',ratti:'Ratti'};
-  const FX={USD:1,INR:83.5,AED:3.67,SAR:3.75,GBP:0.79,EUR:0.92,SGD:1.34,AUD:1.53,JPY:149.5,CAD:1.36,CHF:0.9,MYR:4.68};
-  const FX_SYM={USD:'$',INR:'Rs.',AED:'AED ',SAR:'SAR ',GBP:'GBP ',EUR:'EUR ',SGD:'S$',AUD:'A$',JPY:'JPY ',CAD:'C$',CHF:'Fr ',MYR:'RM '};
-  const TAX={USD:1.00,INR:3.00,AED:1.05,SAR:1.05,GBP:1.20,EUR:1.19,SGD:1.09,AUD:1.10,JPY:1.10,CAD:1.05,CHF:1.08,MYR:1.06};
+  const FX_SYM={USD:'$',INR:'₹',AED:'AED ',SAR:'SAR ',GBP:'£',EUR:'€',SGD:'S$',AUD:'A$',JPY:'¥',CAD:'C$',CHF:'Fr ',MYR:'RM '};
+  const TAX={USD:1.00,INR:1.18,AED:1.05,SAR:1.05,GBP:1.20,EUR:1.19,SGD:1.09,AUD:1.10,JPY:1.10,CAD:1.05,CHF:1.08,MYR:1.06};
   const TAX_NOTES={USD:'International spot price',INR:'Incl. 15% import duty + 3% GST',AED:'Incl. 5% VAT',SAR:'Incl. 5% VAT',GBP:'Incl. 20% VAT',EUR:'Incl. ~19% VAT',SGD:'Incl. 9% GST',AUD:'Incl. 10% GST',JPY:'Incl. 10% tax',CAD:'Incl. 5% GST',CHF:'Incl. 7.7% VAT',MYR:'Incl. 6% SST'};
   const COUNTRIES=[
     {flag:'US',name:'United States',code:'USD'},
@@ -362,21 +519,48 @@ const description = "Live silver rates and precious metals calculator. Convert s
     {flag:'CH',name:'Switzerland',code:'CHF'},
     {flag:'MY',name:'Malaysia',code:'MYR'},
   ];
-  const PERF={w1:-0.82,m1:3.41,m6:12.7,y1:18.3};
+  const PERF_STATIC={w1:-0.82,m1:3.41,m6:12.7,y1:18.3};
 
-  let silverOz=32.45,silverGram=silverOz/TROY;
-  let currentUnit='gram',selectedCurrency='USD';
-
-  async function fetchPrices(){
-    try{const r=await fetch('https://api.metals.live/v1/spot');if(r.ok){const d=await r.json();if(d?.[0])silverOz=d[0].silver||silverOz;}}catch(e){silverOz=32.45+(Math.random()-0.5)*0.3;}
-    silverGram=silverOz/TROY;
-  }
-
-  async function fetchFX(){
-    try{const r=await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,AED,SAR,GBP,EUR,SGD,AUD,JPY,CAD,CHF,MYR');if(r.ok){const d=await r.json();if(d?.rates)Object.assign(FX,d.rates);}}catch(e){}
-  }
+  let silverOz=80.39, silverGram=silverOz/TROY;
+  let FX={USD:1,INR:84,AED:3.67,SAR:3.75,GBP:0.79,EUR:0.92,SGD:1.34,AUD:1.53,JPY:149.5,CAD:1.36,CHF:0.9,MYR:4.68};
+  let currentUnit='gram', selectedCurrency='USD';
+  let currentPeriod='1M', chartPts=[], chartDates=[];
+  let change24h=0, changePct24h=0, high24h=0, low24h=0;
 
   function fmt(n,d=2){return n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+  async function fetchAll(){
+    try{
+      const r=await fetch(API+'?type=all');
+      if(r.ok){
+        const d=await r.json();
+        if(d.silver_oz && d.silver_oz>10){
+          silverOz=d.silver_oz;
+          silverGram=d.silver_gram||silverOz/TROY;
+          high24h=d.high_24h||silverOz*1.005;
+          low24h=d.low_24h||silverOz*0.995;
+          change24h=d.change_24h||0;
+          changePct24h=d.change_pct||0;
+        }
+        if(d.fx) Object.assign(FX,d.fx);
+      }
+    }catch(e){}
+  }
+
+  async function fetchChart(period){
+    try{
+      const r=await fetch(`${API}?type=chart&period=${period}`);
+      if(r.ok){
+        const d=await r.json();
+        if(d.points&&d.points.length>3){
+          chartPts=d.points.map(p=>p.v);
+          chartDates=d.points.map(p=>new Date(p.t));
+          return true;
+        }
+      }
+    }catch(e){}
+    return false;
+  }
 
   function updateUI(){
     const now=new Date();
@@ -388,25 +572,23 @@ const description = "Live silver rates and precious metals calculator. Convert s
     document.getElementById('silver-oz').textContent=fmt(silverOz);
     document.getElementById('silver-gram').textContent='$'+fmt(silverGram,4);
     document.getElementById('silver-kg').textContent='$'+fmt(silverGram*1000,2);
-    document.getElementById('silver-high').textContent='$'+fmt(silverOz+0.18);
-    document.getElementById('silver-low').textContent='$'+fmt(silverOz-0.22);
+    document.getElementById('silver-high').textContent='$'+fmt(high24h);
+    document.getElementById('silver-low').textContent='$'+fmt(low24h);
     document.getElementById('tick-silver').textContent='$'+fmt(silverOz);
     document.getElementById('tick-silver-gram').textContent='$'+fmt(silverGram,4);
     document.getElementById('tick-silver-kg').textContent='$'+fmt(silverGram*1000,2);
 
-    const sc=parseFloat(((Math.random()-0.47)*0.35).toFixed(3));
-    const scPct=(sc/silverOz*100).toFixed(2);
-    const up=sc>=0;
+    const up=changePct24h>=0;
     document.getElementById('silver-change-badge').className='change-badge '+(up?'up':'down');
     document.getElementById('silver-arrow').textContent=up?'^':'v';
-    document.getElementById('silver-change').textContent=`${up?'+':''}${sc} (${up?'+':''}${scPct}%)`;
-    document.getElementById('tick-silver-chg').textContent=`${up?'+':''}${sc}`;
+    document.getElementById('silver-change').textContent=`${up?'+':''}${fmt(change24h)} (${up?'+':''}${fmt(changePct24h,2)}%)`;
+    document.getElementById('tick-silver-chg').textContent=`${up?'+':''}${fmt(change24h)}`;
     document.getElementById('tick-silver-chg').className=up?'ticker-up':'ticker-down';
 
-    // Performance
+    // Performance table
     const tbody=document.getElementById('perf-tbody');
-    const todayPct=sc/silverOz*100;
-    const rows=[['Today',todayPct],['1 Week',PERF.w1],['1 Month',PERF.m1],['6 Months',PERF.m6],['1 Year',PERF.y1]];
+    const todayPct=changePct24h;
+    const rows=[['Today',todayPct],['1 Week',PERF_STATIC.w1],['1 Month',PERF_STATIC.m1],['6 Months',PERF_STATIC.m6],['1 Year',PERF_STATIC.y1]];
     tbody.innerHTML=rows.map(([label,pct])=>{
       const change=silverOz*pct/100;
       const up=change>=0;
@@ -414,41 +596,57 @@ const description = "Live silver rates and precious metals calculator. Convert s
       return `<tr>
         <td style="color:#3D4A5C;font-weight:500;font-family:'Times New Roman',serif;padding:12px 20px;border-bottom:1px solid #E2E6EA">${label}</td>
         <td style="color:${color};font-weight:600;font-family:'Times New Roman',serif;text-align:right;padding:12px 20px;border-bottom:1px solid #E2E6EA">${up?'+':''}${fmt(change)}</td>
-        <td style="color:${color};font-weight:600;font-family:'Times New Roman',serif;text-align:right;padding:12px 20px;border-bottom:1px solid #E2E6EA">${up?'+':''}${pct.toFixed(2)}%</td>
+        <td style="color:${color};font-weight:600;font-family:'Times New Roman',serif;text-align:right;padding:12px 20px;border-bottom:1px solid #E2E6EA">${up?'+':''}${fmt(pct,2)}%</td>
       </tr>`;
     }).join('');
 
     updateRates();
     updateBreakdown();
     calculate();
-    drawChart(currentPeriod);
+    if(selectedCurrency !== 'USD') updateSpotDisplay();
   }
 
+  function getCurrencyFactor(code){
+    const rate=FX[code]||1;
+    const tax=TAX[code]||1;
+    return rate*tax;
+  }
+function updateSpotDisplay(){
+    const factor=getCurrencyFactor(selectedCurrency);
+    const sym=FX_SYM[selectedCurrency]||'$';
+    const isJPY=selectedCurrency==='JPY';
+    const dp=isJPY?0:2;
+    const convertedOz=silverOz*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    const convertedGram=silverGram*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    const convertedKg=convertedGram*1000;
+    const convertedHigh=high24h*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    const convertedLow=low24h*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    document.getElementById('silver-oz').textContent=fmt(convertedOz,dp);
+    document.querySelector('.price-unit').textContent=`Per Troy Ounce · ${selectedCurrency}`;
+    document.querySelector('.spot-price').innerHTML=`${sym}<span id="silver-oz">${fmt(convertedOz,dp)}</span>`;
+    document.getElementById('silver-gram').textContent=sym+fmt(convertedGram,4);
+    document.getElementById('silver-kg').textContent=sym+fmt(convertedKg,2);
+    document.getElementById('silver-high').textContent=sym+fmt(convertedHigh,dp);
+    document.getElementById('silver-low').textContent=sym+fmt(convertedLow,dp);
+    document.getElementById('tick-silver').textContent=sym+fmt(convertedOz,dp);
+    document.getElementById('tick-silver-gram').textContent=sym+fmt(convertedGram,4);
+    document.getElementById('tick-silver-kg').textContent=sym+fmt(convertedKg,2);
+  }
   function updateRates(){
     const grid=document.getElementById('rates-grid');
     grid.innerHTML='';
     COUNTRIES.forEach(c=>{
-      const rate=FX[c.code]||1,tax=TAX[c.code]||1,sym=FX_SYM[c.code]||'$';
+      const factor=getCurrencyFactor(c.code);
+      const sym=FX_SYM[c.code]||'$';
       const isJPY=c.code==='JPY';
-      const gramVal=silverGram*rate*tax;
-      const kgVal=silverGram*1000*rate*tax;
+      const gramVal=silverGram*factor;
+      const kgVal=silverGram*1000*factor;
       const gramFmt=isJPY?fmt(gramVal,0):fmt(gramVal,2);
       const kgFmt=fmt(kgVal,0);
       const isActive=c.code===selectedCurrency;
 
       const cell=document.createElement('div');
-      cell.style.cssText=`
-        background:${isActive?'linear-gradient(135deg,#EBF3FF,#dbeafe)':'#FFFFFF'};
-        border:${isActive?'2px solid #1a4d7c':'1px solid #E2E6EA'};
-        border-radius:12px;
-        padding:18px;
-        cursor:pointer;
-        transition:all 0.2s;
-        box-shadow:${isActive?'0 4px 16px rgba(26,77,124,0.18)':'0 2px 8px rgba(0,0,0,0.06)'};
-        position:relative;
-        overflow:hidden;
-      `;
-
+      cell.style.cssText=`background:${isActive?'linear-gradient(135deg,#EBF3FF,#dbeafe)':'#FFFFFF'};border:${isActive?'2px solid #1a4d7c':'1px solid #E2E6EA'};border-radius:12px;padding:18px;cursor:pointer;transition:all 0.2s;box-shadow:${isActive?'0 4px 16px rgba(26,77,124,0.18)':'0 2px 8px rgba(0,0,0,0.06)'};position:relative;overflow:hidden;`;
       cell.innerHTML=`
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
           <div style="background:#1a4d7c;color:white;font-size:10px;font-weight:800;padding:4px 6px;border-radius:4px;font-family:'Times New Roman',serif;letter-spacing:0.05em;min-width:28px;text-align:center">${c.flag}</div>
@@ -462,16 +660,17 @@ const description = "Live silver rates and precious metals calculator. Convert s
         <div style="font-family:'Times New Roman',serif;font-size:11px;color:#6B7A8D;margin-bottom:8px">${sym}${kgFmt} / kg</div>
         <div style="font-size:10px;color:${isActive?'#1a4d7c':'#9AAABB'};font-weight:600;font-family:'Times New Roman',serif;font-style:italic">${TAX_NOTES[c.code]||''}</div>
       `;
-
       cell.addEventListener('mouseenter',()=>{if(!isActive){cell.style.borderColor='#1a4d7c';cell.style.background='#F0F7FF';cell.style.boxShadow='0 6px 20px rgba(26,77,124,0.14)';cell.style.transform='translateY(-2px)';}});
       cell.addEventListener('mouseleave',()=>{if(!isActive){cell.style.borderColor='#E2E6EA';cell.style.background='#FFFFFF';cell.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)';cell.style.transform='translateY(0)';}});
-      cell.addEventListener('click',()=>{
+     cell.addEventListener('click',()=>{
         selectedCurrency=c.code;
         document.getElementById('calc-currency-name').textContent=c.code+' - '+c.name;
         document.getElementById('result-currency-label').textContent=c.code;
         document.getElementById('result-sym').textContent=sym;
+        updateSpotDisplay();
         calculate();
         updateRates();
+        drawChart(currentPeriod);
         document.querySelector('.calc-card').scrollIntoView({behavior:'smooth',block:'center'});
       });
       grid.appendChild(cell);
@@ -479,17 +678,19 @@ const description = "Live silver rates and precious metals calculator. Convert s
   }
 
   function updateBreakdown(){
-    const rate=FX[selectedCurrency]||1,tax=TAX[selectedCurrency]||1,sym=FX_SYM[selectedCurrency]||'$';
+    const factor=getCurrencyFactor(selectedCurrency);
+    const sym=FX_SYM[selectedCurrency]||'$';
     const dp=selectedCurrency==='JPY'?0:4;
-    document.getElementById('bd-gram').textContent=sym+fmt(silverGram*rate*tax,dp);
-    document.getElementById('bd-oz').textContent=sym+fmt(silverOz*rate*tax,2);
-    document.getElementById('bd-kg').textContent=sym+fmt(silverGram*1000*rate*tax,2);
-    document.getElementById('bd-tola').textContent=sym+fmt(silverGram*TOLA*rate*tax,dp);
+    document.getElementById('bd-gram').textContent=sym+fmt(silverGram*factor,dp);
+    document.getElementById('bd-oz').textContent=sym+fmt(silverOz*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1),2);
+    document.getElementById('bd-kg').textContent=sym+fmt(silverGram*1000*factor,2);
+    document.getElementById('bd-tola').textContent=sym+fmt(silverGram*TOLA*factor,dp);
   }
 
   function calculate(){
     const amount=parseFloat(document.getElementById('amount').value)||0;
-    const val=amount*UNITS[currentUnit]*silverGram*(FX[selectedCurrency]||1)*(TAX[selectedCurrency]||1);
+    const factor=getCurrencyFactor(selectedCurrency);
+    const val=amount*UNITS[currentUnit]*silverGram*factor;
     document.getElementById('result-val').textContent=val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
     updateBreakdown();
   }
@@ -503,92 +704,57 @@ const description = "Live silver rates and precious metals calculator. Convert s
       calculate();
     });
   });
-
   document.getElementById('amount').addEventListener('input',calculate);
 
-  // Chart period state
-  let currentPeriod = '1M';
-  let chartPts = [], chartDates = [];
+  function drawChart(period){
+    period=period||currentPeriod;
+    currentPeriod=period;
 
-  function generatePts(days, volatility) {
-    let p = silverOz * (1 - volatility * 0.5);
-    const pts = [], dates = [];
-    const now = new Date();
-    for (let i = days-1; i >= 0; i--) {
-      const d = new Date(now); d.setDate(now.getDate()-i); dates.push(d);
-    }
-    for (let i = 0; i < days; i++) { p += (Math.random()-0.48)*(silverOz*volatility*0.3); pts.push(Math.max(p,silverOz*0.7)); }
-    pts[pts.length-1] = silverOz;
-    return {pts, dates};
-  }
+    if(!chartPts.length) return;
 
-  function drawChart(period) {
-    period = period || currentPeriod;
-    currentPeriod = period;
+    const factor=getCurrencyFactor(selectedCurrency);
+    const sym=FX_SYM[selectedCurrency]||'$';
+    const convertedPts=chartPts.map(v=>v*factor);
 
-    const configs = {
-      '1D': {days:1, points:24, label:'24h', volatility:0.003, isHours:true},
-      '1W': {days:7, points:7, label:'7D', volatility:0.006},
-      '1M': {days:30, points:30, label:'30D', volatility:0.008},
-      '1Y': {days:365, points:52, label:'1Y', volatility:0.015},
-      '5Y': {days:1825, points:60, label:'5Y', volatility:0.025},
-    };
-    const cfg = configs[period];
+    const svg=document.getElementById('silver-chart');
+    const minVal=Math.min(...convertedPts),maxVal=Math.max(...convertedPts);
+    const min=minVal*0.997,max=maxVal*1.003,range=max-min;
+    const W=800,H=240,PAD=14,LEFT=68,BOTTOM=22;
 
-    // Generate data
-    let p = silverOz * (1 - cfg.volatility * cfg.points * 0.4);
-    chartPts = []; chartDates = [];
-    const now = new Date();
-    for (let i = cfg.points-1; i >= 0; i--) {
-      const d = new Date(now);
-      if (cfg.isHours) d.setHours(now.getHours()-i);
-      else d.setDate(now.getDate()-Math.round(i*cfg.days/cfg.points));
-      chartDates.push(d);
-    }
-    for (let i = 0; i < cfg.points; i++) {
-      p += (Math.random()-0.48)*(silverOz*cfg.volatility);
-      chartPts.push(Math.max(p, silverOz*0.5));
-    }
-    chartPts[chartPts.length-1] = silverOz;
+    const toY=(v)=>H-BOTTOM-PAD-((v-min)/range)*(H-BOTTOM-PAD*2);
+    const toX=(i)=>LEFT+(i/(convertedPts.length-1))*(W-LEFT-8);
 
-    const svg = document.getElementById('silver-chart');
-    const minVal = Math.min(...chartPts), maxVal = Math.max(...chartPts);
-    const min = minVal*0.997, max = maxVal*1.003, range = max-min;
-    const W=800, H=240, PAD=14, LEFT=68, BOTTOM=22;
+    const coords=convertedPts.map((v,i)=>`${toX(i)},${toY(v)}`);
+    const lastY=toY(convertedPts[convertedPts.length-1]);
 
-    const toY = (v) => H-BOTTOM-PAD - ((v-min)/range)*(H-BOTTOM-PAD*2);
-    const toX = (i) => LEFT + (i/(chartPts.length-1))*(W-LEFT-8);
-
-    const coords = chartPts.map((v,i) => `${toX(i)},${toY(v)}`);
-    const lastY = toY(silverOz);
-
-    // Grid lines + y labels
-    let gridLines='', yL='', xL='';
-    for (let i=0; i<=4; i++) {
-      const val = min+(range*i/4);
-      const y = toY(val);
-      gridLines += `<line x1="${LEFT}" y1="${y}" x2="${W-8}" y2="${y}" stroke="#EAECEF" stroke-width="1"/>`;
-      yL += `<text x="${LEFT-6}" y="${y+4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="end">$${fmt(val)}</text>`;
+    let gridLines='',yL='',xL='';
+    for(let i=0;i<=4;i++){
+      const val=min+(range*i/4);
+      const y=toY(val);
+      gridLines+=`<line x1="${LEFT}" y1="${y}" x2="${W-8}" y2="${y}" stroke="#EAECEF" stroke-width="1"/>`;
+      const dp=selectedCurrency==='JPY'?0:2;
+      yL+=`<text x="${LEFT-6}" y="${y+4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="end">${sym}${fmt(val,dp)}</text>`;
     }
 
-    // X labels - 5 evenly spaced
-    const xIndices = [0, Math.floor(chartPts.length/4), Math.floor(chartPts.length/2), Math.floor(chartPts.length*3/4), chartPts.length-1];
-    xIndices.forEach(i => {
-      const x = toX(i);
-      const d = chartDates[i];
+    const periodLabels={'1D':'24h','1W':'7D','1M':'30D','1Y':'1Y','5Y':'5Y'};
+    const cfg={isHours:period==='1D',days:period==='1D'?1:period==='1W'?7:period==='1M'?30:period==='1Y'?365:1825};
+
+    const xIndices=[0,Math.floor(convertedPts.length/4),Math.floor(convertedPts.length/2),Math.floor(convertedPts.length*3/4),convertedPts.length-1];
+    xIndices.forEach(i=>{
+      const x=toX(i);
+      const d=chartDates[i];
+      if(!d) return;
       let label;
-      if (cfg.isHours) label = d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      else if (cfg.days <= 7) label = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-      else if (cfg.days <= 365) label = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-      else label = d.toLocaleDateString('en-US',{month:'short',year:'2-digit'});
-      xL += `<text x="${x}" y="${H-4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="middle">${label}</text>`;
+      if(cfg.isHours) label=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      else if(cfg.days<=7) label=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      else if(cfg.days<=365) label=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      else label=d.toLocaleDateString('en-US',{month:'short',year:'2-digit'});
+      xL+=`<text x="${x}" y="${H-4}" font-size="10" fill="#9AAABB" font-family="Times New Roman,serif" text-anchor="middle">${label}</text>`;
     });
 
-    // Min/max markers
-    const minIdx = chartPts.indexOf(minVal), maxIdx = chartPts.indexOf(maxVal);
+    const minIdx=convertedPts.indexOf(minVal),maxIdx=convertedPts.indexOf(maxVal);
 
-    // Crosshair line (vertical) - will be controlled by JS
-    svg.innerHTML = `
+    svg.innerHTML=`
       <defs>
         <linearGradient id="gsilver" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#1a4d7c" stop-opacity="0.2"/>
@@ -599,7 +765,7 @@ const description = "Live silver rates and precious metals calculator. Convert s
       ${gridLines}
       <line x1="${LEFT}" y1="${PAD}" x2="${LEFT}" y2="${H-BOTTOM-PAD}" stroke="#CDD3DA" stroke-width="1"/>
       ${yL}${xL}
-      <path d="M ${toX(0)},${H-BOTTOM-PAD} L ${coords.join(' L ')} L ${toX(chartPts.length-1)},${H-BOTTOM-PAD} Z" fill="url(#gsilver)"/>
+      <path d="M ${toX(0)},${H-BOTTOM-PAD} L ${coords.join(' L ')} L ${toX(convertedPts.length-1)},${H-BOTTOM-PAD} Z" fill="url(#gsilver)"/>
       <path d="M ${coords.join(' L ')}" fill="none" stroke="#1a4d7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <circle cx="${toX(minIdx)}" cy="${toY(minVal)}" r="4" fill="#E53E3E" stroke="white" stroke-width="2"/>
       <text x="${toX(minIdx)}" y="${toY(minVal)+16}" font-size="9" fill="#E53E3E" font-family="Times New Roman,serif" text-anchor="middle">Low</text>
@@ -607,95 +773,84 @@ const description = "Live silver rates and precious metals calculator. Convert s
       <text x="${toX(maxIdx)}" y="${toY(maxVal)-10}" font-size="9" fill="#0EA371" font-family="Times New Roman,serif" text-anchor="middle">High</text>
       <line id="crosshair" x1="0" y1="${PAD}" x2="0" y2="${H-BOTTOM-PAD}" stroke="#1a4d7c" stroke-width="1" stroke-dasharray="4,3" opacity="0"/>
       <circle id="crosshair-dot" cx="0" cy="0" r="5" fill="#1a4d7c" stroke="white" stroke-width="2" opacity="0"/>
-      <circle cx="${toX(chartPts.length-1)}" cy="${lastY}" r="5" fill="#1a4d7c" stroke="white" stroke-width="2"/>
+      <circle cx="${toX(convertedPts.length-1)}" cy="${lastY}" r="5" fill="#1a4d7c" stroke="white" stroke-width="2"/>
     `;
 
-    // Tooltip interactivity
-    const chartWrap = svg.parentElement;
-    const tooltip = document.getElementById('chart-tooltip');
-    const crosshair = document.getElementById('crosshair');
-    const crosshairDot = document.getElementById('crosshair-dot');
+    const tooltip=document.getElementById('chart-tooltip');
+    const crosshair=document.getElementById('crosshair');
+    const crosshairDot=document.getElementById('crosshair-dot');
 
-    svg.addEventListener('mousemove', (e) => {
-      const rect = svg.getBoundingClientRect();
-      const scaleX = 800 / rect.width;
-      const mouseX = (e.clientX - rect.left) * scaleX;
-      if (mouseX < LEFT || mouseX > W-8) return;
-
-      const idx = Math.round((mouseX - LEFT) / (W-LEFT-8) * (chartPts.length-1));
-      const clampedIdx = Math.max(0, Math.min(chartPts.length-1, idx));
-      const val = chartPts[clampedIdx];
-      const x = toX(clampedIdx);
-      const y = toY(val);
-      const d = chartDates[clampedIdx];
-
-      // Update crosshair
-      crosshair.setAttribute('x1', x); crosshair.setAttribute('x2', x); crosshair.setAttribute('opacity', '0.6');
-      crosshairDot.setAttribute('cx', x); crosshairDot.setAttribute('cy', y); crosshairDot.setAttribute('opacity', '1');
-
-      // Update tooltip
-      let dateLabel;
-      if (cfg.isHours) dateLabel = d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      else dateLabel = d.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
-
-      tooltip.innerHTML = `<strong>${dateLabel}</strong><br>$${fmt(val)}`;
-      tooltip.style.display = 'block';
-
-      // Position tooltip
-      const tipX = (x / scaleX) - 50;
-      const tipY = (y / (240 / rect.height)) - 55;
-      tooltip.style.left = Math.max(0, tipX) + 'px';
-      tooltip.style.top = Math.max(0, tipY) + 'px';
+    svg.addEventListener('mousemove',(e)=>{
+      const rect=svg.getBoundingClientRect();
+      const scaleX=800/rect.width;
+      const mouseX=(e.clientX-rect.left)*scaleX;
+      if(mouseX<LEFT||mouseX>W-8) return;
+      const idx=Math.round((mouseX-LEFT)/(W-LEFT-8)*(convertedPts.length-1));
+      const clampedIdx=Math.max(0,Math.min(convertedPts.length-1,idx));
+      const val=convertedPts[clampedIdx];
+      const x=toX(clampedIdx);
+      const y=toY(val);
+      const d=chartDates[clampedIdx];
+      crosshair.setAttribute('x1',x);crosshair.setAttribute('x2',x);crosshair.setAttribute('opacity','0.6');
+      crosshairDot.setAttribute('cx',x);crosshairDot.setAttribute('cy',y);crosshairDot.setAttribute('opacity','1');
+      let dateLabel=cfg.isHours?d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}):d.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+      const dp=selectedCurrency==='JPY'?0:2;
+      tooltip.innerHTML=`<strong>${dateLabel}</strong><br>${sym}${fmt(val,dp)}`;
+      tooltip.style.display='block';
+      tooltip.style.left=Math.max(0,(x/scaleX)-50)+'px';
+      tooltip.style.top=Math.max(0,(y/(240/rect.height))-55)+'px';
     });
-
-    svg.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
+    svg.addEventListener('mouseleave',()=>{
+      tooltip.style.display='none';
       crosshair.setAttribute('opacity','0');
       crosshairDot.setAttribute('opacity','0');
     });
 
-    // Update meta bar
-    const change = silverOz - chartPts[0];
-    const pct = (change/chartPts[0]*100).toFixed(2);
-    const up = change >= 0;
-    document.getElementById('chart-high').textContent = '$'+fmt(maxVal);
-    document.getElementById('chart-high').style.color = '#0EA371';
-    document.getElementById('chart-low').textContent = '$'+fmt(minVal);
-    document.getElementById('chart-low').style.color = '#E53E3E';
-    document.getElementById('chart-change').textContent = (up?'+':'')+fmt(change)+' ('+pct+'%)';
-    document.getElementById('chart-change').style.color = up?'#0EA371':'#E53E3E';
-    document.getElementById('chart-range').textContent = '$'+fmt(maxVal-minVal);
-    document.getElementById('meta-high-label').textContent = cfg.label+' High';
-    document.getElementById('meta-low-label').textContent = cfg.label+' Low';
-    document.getElementById('meta-change-label').textContent = cfg.label+' Change';
+    const change=convertedPts[convertedPts.length-1]-convertedPts[0];
+    const pct=(change/convertedPts[0]*100).toFixed(2);
+    const up=change>=0;
+    const dp=selectedCurrency==='JPY'?0:2;
+    document.getElementById('chart-high').textContent=sym+fmt(maxVal,dp);
+    document.getElementById('chart-high').style.color='#0EA371';
+    document.getElementById('chart-low').textContent=sym+fmt(minVal,dp);
+    document.getElementById('chart-low').style.color='#E53E3E';
+    document.getElementById('chart-change').textContent=(up?'+':'')+fmt(change,dp)+' ('+pct+'%)';
+    document.getElementById('chart-change').style.color=up?'#0EA371':'#E53E3E';
+    document.getElementById('chart-range').textContent=sym+fmt(maxVal-minVal,dp);
+    const pl=periodLabels[period]||period;
+    document.getElementById('meta-high-label').textContent=pl+' High';
+    document.getElementById('meta-low-label').textContent=pl+' Low';
+    document.getElementById('meta-change-label').textContent=pl+' Change';
   }
 
-  // Period button handlers
-  document.querySelectorAll('.period-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+ document.querySelectorAll('.period-btn').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      drawChart(btn.dataset.period);
+      const period=btn.dataset.period;
+      chartPts=[];
+      chartDates=[];
+      await fetchChart(period);
+      drawChart(period);
     });
   });
 
-  // FAQ
-  const FAQS = [
-    {q:'What is the current silver spot price?', a:'The silver spot price is the current market price for one troy ounce of silver for immediate delivery. It changes every second during market hours based on global supply and demand. Our site updates the live silver price every 60 seconds.'},
-    {q:'What is a troy ounce of silver?', a:'A troy ounce is the standard unit of measurement for precious metals. It equals 31.1035 grams, which is slightly heavier than a regular (avoirdupois) ounce of 28.35 grams. All international silver prices are quoted per troy ounce.'},
-    {q:'Why is the silver price in India higher than the international spot price?', a:'Silver imported into India attracts a 15% basic customs duty plus 3% Goods and Services Tax (GST), and additional dealer margins. This means the retail price in India can be significantly higher than the international spot price.'},
-    {q:'How is the silver price calculated per gram?', a:'To get the price per gram, divide the silver spot price (per troy ounce) by 31.1035. For example, if silver is $32.50 per troy ounce, the price per gram is approximately $1.045.'},
-    {q:'What factors affect the price of silver?', a:'Silver prices are influenced by industrial demand (used in electronics, solar panels, and medical devices), investment demand, the US dollar strength, inflation rates, mining output, geopolitical events, and broader commodity market trends.'},
-    {q:'What is a tola of silver?', a:'A tola is a traditional South Asian unit of weight equal to 11.6638 grams. It is commonly used in India, Pakistan, and Bangladesh when buying or selling gold and silver jewellery and bullion.'},
-    {q:'How does the Gold/Silver ratio work?', a:'The Gold/Silver ratio tells you how many ounces of silver it takes to buy one ounce of gold. Historically, this ratio has averaged around 60:1 to 80:1. A higher ratio suggests silver may be undervalued relative to gold.'},
-    {q:'Is silver a good investment?', a:'Silver can serve as a store of value and inflation hedge, similar to gold, but with higher volatility. It also has significant industrial applications which can drive demand. However, investment decisions depend on your financial goals and risk tolerance. This site provides prices for informational purposes only and does not constitute financial advice.'},
-    {q:'What is the difference between silver bullion and silver jewellery prices?', a:'Silver bullion (bars and coins) is priced close to the spot price with a small premium. Silver jewellery prices include making charges, design costs, and retail margins, which can be significantly higher than the raw silver content value.'},
-    {q:'How often is the silver price updated on this site?', a:'The silver spot price on SilverRatesToday.com is updated every 60 seconds during market hours using live data from public metals price APIs. Exchange rates are refreshed every 6 hours to ensure accurate local currency conversions.'},
+  const FAQS=[
+    {q:'What is the current silver spot price?',a:'The silver spot price is the current market price for one troy ounce of silver for immediate delivery. It changes every second during market hours based on global supply and demand. Our site updates the live silver price every 60 seconds.'},
+    {q:'What is a troy ounce of silver?',a:'A troy ounce is the standard unit of measurement for precious metals. It equals 31.1035 grams, which is slightly heavier than a regular (avoirdupois) ounce of 28.35 grams. All international silver prices are quoted per troy ounce.'},
+    {q:'Why is the silver price in India higher than the international spot price?',a:'Silver imported into India attracts a 15% basic customs duty plus 3% Goods and Services Tax (GST), and additional dealer margins. This means the retail price in India can be significantly higher than the international spot price.'},
+    {q:'How is the silver price calculated per gram?',a:'To get the price per gram, divide the silver spot price (per troy ounce) by 31.1035. For example, if silver is $80.50 per troy ounce, the price per gram is approximately $2.59.'},
+    {q:'What factors affect the price of silver?',a:'Silver prices are influenced by industrial demand (used in electronics, solar panels, and medical devices), investment demand, the US dollar strength, inflation rates, mining output, geopolitical events, and broader commodity market trends.'},
+    {q:'What is a tola of silver?',a:'A tola is a traditional South Asian unit of weight equal to 11.6638 grams. It is commonly used in India, Pakistan, and Bangladesh when buying or selling gold and silver jewellery and bullion.'},
+    {q:'How does the Gold/Silver ratio work?',a:'The Gold/Silver ratio tells you how many ounces of silver it takes to buy one ounce of gold. Historically, this ratio has averaged around 60:1 to 80:1. A higher ratio suggests silver may be undervalued relative to gold.'},
+    {q:'Is silver a good investment?',a:'Silver can serve as a store of value and inflation hedge, similar to gold, but with higher volatility. It also has significant industrial applications which can drive demand. However, investment decisions depend on your financial goals and risk tolerance. This site provides prices for informational purposes only and does not constitute financial advice.'},
+    {q:'What is the difference between silver bullion and silver jewellery prices?',a:'Silver bullion (bars and coins) is priced close to the spot price with a small premium. Silver jewellery prices include making charges, design costs, and retail margins, which can be significantly higher than the raw silver content value.'},
+    {q:'How often is the silver price updated on this site?',a:'The silver spot price on SilverRatesToday.com is updated every 60 seconds during market hours using live data from our Cloudflare Worker API. Exchange rates are refreshed every 6 hours to ensure accurate local currency conversions.'},
   ];
 
-  function buildFAQ() {
-    const list = document.getElementById('faq-list');
-    list.innerHTML = FAQS.map((f,i) => `
+  function buildFAQ(){
+    const list=document.getElementById('faq-list');
+    list.innerHTML=FAQS.map((f,i)=>`
       <div style="border-bottom:1px solid #E2E6EA">
         <div onclick="toggleFAQ(${i})" id="faq-q-${i}" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Times New Roman',serif;font-size:14px;font-weight:600;color:#1A1F2E;gap:16px;user-select:none">
           <span>${f.q}</span>
@@ -706,25 +861,29 @@ const description = "Live silver rates and precious metals calculator. Convert s
     `).join('');
   }
 
-  function toggleFAQ(i) {
-    const a = document.getElementById('faq-a-'+i);
-    const icon = document.getElementById('faq-icon-'+i);
-    const q = document.getElementById('faq-q-'+i);
-    const isOpen = a.style.display === 'block';
-    a.style.display = isOpen ? 'none' : 'block';
-    icon.textContent = isOpen ? '+' : '-';
-    icon.style.color = isOpen ? '#6B7A8D' : '#1a4d7c';
-    q.style.color = isOpen ? '#1A1F2E' : '#1a4d7c';
+  function scrollCarousel(dir){
+    const c=document.getElementById('blog-carousel');
+    c.scrollBy({left:dir*300,behavior:'smooth'});
+  }function toggleFAQ(i){
+    const a=document.getElementById('faq-a-'+i);
+    const icon=document.getElementById('faq-icon-'+i);
+    const q=document.getElementById('faq-q-'+i);
+    const isOpen=a.style.display==='block';
+    a.style.display=isOpen?'none':'block';
+    icon.textContent=isOpen?'+':'-';
+    icon.style.color=isOpen?'#6B7A8D':'#1a4d7c';
+    q.style.color=isOpen?'#1A1F2E':'#1a4d7c';
   }
 
   async function init(){
-    silverOz=32.45+(Math.random()-0.5)*0.3;
-    silverGram=silverOz/TROY;
     buildFAQ();
     updateUI();
-    try{await Promise.all([fetchPrices(),fetchFX()]);updateUI();}catch(e){}
-    setInterval(async()=>{try{await fetchPrices();updateUI();}catch(e){}},60000);
-    setInterval(async()=>{try{await fetchFX();updateUI();}catch(e){}},6*60*60*1000);
+    await fetchAll();
+    updateUI();
+    await fetchChart('1M');
+    drawChart('1M');
+    setInterval(async()=>{await fetchAll();updateUI();drawChart(currentPeriod);},60000);
+    setInterval(async()=>{await fetchChart(currentPeriod);drawChart(currentPeriod);},15*60*1000);
   }
 
   init();

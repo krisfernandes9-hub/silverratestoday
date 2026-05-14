@@ -2,7 +2,6 @@
 title: 'What is a Troy Ounce? Silver & Gold Weight Units Explained'
 description: 'Learn what a troy ounce is and how it differs from a regular ounce. Complete guide to precious metals weight units including grams, tola, sovereign, and ratti.'
 pubDate: 'May 08 2026'
-heroImage: '/blog-placeholder-4.jpg'
 ---
 
 If you have ever looked up the price of silver or gold, you have seen the price quoted "per troy ounce." But what exactly is a troy ounce, and why do precious metals use a different measurement system from everyday weights? This guide explains all the weight units used in the precious metals world.
